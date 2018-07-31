@@ -17,7 +17,7 @@ local newPlayer = function()
         local y = math.floor(rows/2)
         local head = newSegment(x, y)
         local current = head
-        for i = 2, bodySize do
+        for i = bodySize-1, bodySize do
             current.next = newSegment(current.x-1, current.y)
             current = current.next
         end
