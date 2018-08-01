@@ -1,11 +1,10 @@
--- module state
 local cellSize = 20
 local columns = love.graphics.getWidth()/cellSize-1
 local rows = love.graphics.getHeight()/cellSize-1
 local scaledSize = 0.8
 local playerDirection = "right"
 
--- module constructors
+-- constructors
 local newSegment = function(x, y)
     local s = {}
     s.x = x
@@ -41,7 +40,7 @@ local newGame = function()
     return g
 end
 
--- module behavior
+-- behavior
 local drawPlayer = function()
     local drawSegment = function(current)
         love.graphics.rectangle("fill", current.x, current.y, scaledSize ,scaledSize)
@@ -107,7 +106,7 @@ local updatePlayer = function()
     --[[ possible new scenario
     movePlayer()        // make new move based on playerDirection
     checkCollison()     // self collision, food collision
-        if collision with self, end game.
+        if collision with self, end game, display score/gameover screen.
         if collision with food, kill food, add to player, increase score
     --]]
 end
