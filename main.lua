@@ -119,10 +119,7 @@ end
 
 function love.keypressed(k)
     if k == "q" or k == "escape" then love.event.quit() end
-    if k == "up" then playerDirection = "up" end
-    if k == "down" then playerDirection = "down" end
-    if k == "left" then playerDirection = "left" end
-    if k == "right" then playerDirection = "right" end
+    if k == "up" or k == "down" or k == "left" or k == "right" then playerDirection = k end
     if k == "space" then Game.isOver = false end
     if k == "o" then Game.isOver = true end
 end
