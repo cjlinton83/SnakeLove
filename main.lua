@@ -2,9 +2,10 @@
 local cellSize = 20
 local columns = love.graphics.getWidth()/cellSize-1
 local rows = love.graphics.getHeight()/cellSize-1
-local drawSize = 1 - cellSize * 0.01 -- scaled draw size
-local refreshRate = 0.100 -- seconds
+local scaledSize = 1 - cellSize * 0.01
+local refreshRate = 0.075 -- seconds
 local sumDT = 0
+local playerDirection = "right"
 
 -- module constructors
 local newSegment = function(x, y)
@@ -45,7 +46,7 @@ end
 -- module behavior
 local drawPlayer = function()
     local drawSegment = function(current)
-        love.graphics.rectangle("fill", current.x, current.y, drawSize ,drawSize)
+        love.graphics.rectangle("fill", current.x, current.y, scaledSize ,scaledSize)
     end
 
     local current = Game.player.head
@@ -68,8 +69,32 @@ local updatePlayer = function()
         return current
     end
 
+    -- update to the new coordinates before pushing to head of body
     local updateTail = function (tail)
-        tail.x = Game.player.head.x+1
+        if playerDirection == "right" then
+            local dx = Game.player.head.x+1
+            if dx == columns+1 then dx = 0 end
+            tail.x = dx
+            tail.y = Game.player.head.y
+        end
+        if playerDirection == "left" then
+            local dx = Game.player.head.x-1
+            if dx == -1 then dx = columns end
+            tail.x = dx
+            tail.y = Game.player.head.y
+        end
+        if playerDirection == "up" then
+            local dy = Game.player.head.y-1
+            if dy == -1 then dy = rows end
+            tail.y = dy
+            tail.x = Game.player.head.x
+        end
+        if playerDirection == "down" then
+            local dy = Game.player.head.y+1
+            if dy == rows+1 then dy = 0 end
+            tail.y = dy
+            tail.x = Game.player.head.x
+        end
     end
 
     local pushHead = function(tail)
@@ -87,15 +112,29 @@ function love.load()
     Game = newGame()
 end
 
+function love.keypressed(k)
+    if k == "q" or k == "escape" then love.event.quit() end
+    if k == "up" then playerDirection = "up" end
+    if k == "down" then playerDirection = "down" end
+    if k == "left" then playerDirection = "left" end
+    if k == "right" then playerDirection = "right" end
+    if k == "space" then Game.isOver = false end
+    if k == "o" then Game.isOver = true end
+end
+
 function love.update(dt)
-    sumDT = sumDT + dt
-    if sumDT >= refreshRate then
-        updatePlayer()
-        sumDT = sumDT - refreshRate
+    if not Game.isOver then
+        sumDT = sumDT + dt
+        if sumDT >= refreshRate then
+            updatePlayer()
+            sumDT = sumDT - refreshRate
+        end
     end
 end
 
 function love.draw()
+    love.graphics.print("playerDirection: " .. playerDirection)
+
     love.graphics.scale(cellSize, cellSize)
     drawPlayer()
 end
