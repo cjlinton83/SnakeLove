@@ -2,9 +2,7 @@
 local cellSize = 20
 local columns = love.graphics.getWidth()/cellSize-1
 local rows = love.graphics.getHeight()/cellSize-1
-local scaledSize = 1 - cellSize * 0.01
-local refreshRate = 0.075 -- seconds
-local sumDT = 0
+local scaledSize = 0.8
 local playerDirection = "right"
 
 -- module constructors
@@ -105,9 +103,16 @@ local updatePlayer = function()
     local tail = popTail()
     updateTail(tail)
     pushHead(tail)
+
+    --[[ possible new scenario
+    movePlayer()        // make new move based on playerDirection
+    checkCollison()     // self collision, food collision
+        if collision with self, end game.
+        if collision with food, kill food, add to player, increase score
+    --]]
 end
 
--- love defined callbacks
+-- LÖVE --
 function love.load()
     Game = newGame()
 end
@@ -123,18 +128,18 @@ function love.keypressed(k)
 end
 
 function love.update(dt)
-    if not Game.isOver then
-        sumDT = sumDT + dt
-        if sumDT >= refreshRate then
-            updatePlayer()
-            sumDT = sumDT - refreshRate
-        end
+    if Game.isOver then
+    else
+        updatePlayer()
     end
 end
 
 function love.draw()
     love.graphics.print("playerDirection: " .. playerDirection)
-
     love.graphics.scale(cellSize, cellSize)
-    drawPlayer()
+
+    if Game.isOver then
+    else
+        drawPlayer()
+    end
 end
