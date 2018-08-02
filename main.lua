@@ -1,8 +1,7 @@
-local cellSize = 20
-local columns = love.graphics.getWidth()/cellSize-1
-local rows = love.graphics.getHeight()/cellSize-1
-local scaledSize = 0.8
-local playerDirection = "right"
+local cellSize = 24
+local columns = math.floor(love.graphics.getWidth()/cellSize)-1
+local rows = math.floor(love.graphics.getHeight()/cellSize)-1
+local scaledDrawSize = 0.8
 
 -- constructors
 local newSegment = function(x, y)
@@ -30,6 +29,7 @@ local newPlayer = function()
     local p = {}
     p.color = { r = 1, g = 1, b = 1 }
     p.head = newBody()
+    p.direction = "right"
     return p
 end
 
@@ -41,9 +41,16 @@ local newGame = function()
 end
 
 -- behavior
+local setFont = function()
+    local fontSize = cellSize
+    local font = love.graphics.newFont("nes.otf", fontSize)
+    love.graphics.setFont(font)
+end
+
 local drawPlayer = function()
     local drawSegment = function(current)
-        love.graphics.rectangle("fill", current.x, current.y, scaledSize ,scaledSize)
+        love.graphics.rectangle("fill", current.x, current.y,
+            scaledDrawSize , scaledDrawSize)
     end
 
     local current = Game.player.head
@@ -66,71 +73,79 @@ local updatePlayer = function()
         return current
     end
 
-    -- update to the new coordinates before pushing to head of body
-    local updateTail = function (tail)
-        if playerDirection == "right" then
+    local updateSegment = function (segment)
+        if Game.player.direction == "right" then
             local dx = Game.player.head.x+1
             if dx == columns+1 then dx = 0 end
-            tail.x = dx
-            tail.y = Game.player.head.y
+            segment.x = dx
+            segment.y = Game.player.head.y
         end
-        if playerDirection == "left" then
+        if Game.player.direction == "left" then
             local dx = Game.player.head.x-1
             if dx == -1 then dx = columns end
-            tail.x = dx
-            tail.y = Game.player.head.y
+            segment.x = dx
+            segment.y = Game.player.head.y
         end
-        if playerDirection == "up" then
+        if Game.player.direction == "up" then
             local dy = Game.player.head.y-1
             if dy == -1 then dy = rows end
-            tail.y = dy
-            tail.x = Game.player.head.x
+            segment.y = dy
+            segment.x = Game.player.head.x
         end
-        if playerDirection == "down" then
+        if Game.player.direction == "down" then
             local dy = Game.player.head.y+1
             if dy == rows+1 then dy = 0 end
-            tail.y = dy
-            tail.x = Game.player.head.x
+            segment.y = dy
+            segment.x = Game.player.head.x
         end
     end
 
-    local pushHead = function(tail)
-        tail.next = Game.player.head
-        Game.player.head = tail
+    local pushHead = function(segment)
+        segment.next = Game.player.head
+        Game.player.head = segment
     end
 
-    local tail = popTail()
-    updateTail(tail)
-    pushHead(tail)
+    local updatePosition = function()
+        local segment = popTail()
+        updateSegment(segment)
+        pushHead(segment)
+    end
 
-    --[[ possible new scenario
-    movePlayer()        // make new move based on playerDirection
-    checkCollison()     // self collision, food collision
-        if collision with self, end game, display score/gameover screen.
-        if collision with food, kill food, add to player, increase score
-    --]]
+    local checkCollision = function()
+    end
+
+    updatePosition()
+    checkCollision()
 end
 
 -- LÖVE --
 function love.load()
     Game = newGame()
+    setFont()
 end
 
 function love.keypressed(k)
     if k == "q" or k == "escape" then love.event.quit() end
-    if k == "up" or k == "down" or k == "left" or k == "right" then playerDirection = k end
+    if k == "up" or k == "down" or k == "left" or k == "right" then
+        if Game.player ~= nil then
+            Game.player.direction = k 
+        end
+    end
     if k == "space" then Game.isOver = not Game.isOver end
 end
 
 function love.update(dt)
     if Game.isOver then
+        Game.player = nil
     else
+        if Game.player == nil then 
+            Game.player = newPlayer()
+        end
         updatePlayer()
     end
 end
 
 function love.draw()
-    love.graphics.print("playerDirection: " .. playerDirection)
     love.graphics.scale(cellSize, cellSize)
 
     if Game.isOver then
