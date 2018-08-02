@@ -26,102 +26,127 @@ local newPlayer = function()
         return head
     end
 
+    local update = function(game)
+        local popTail = function()
+            local previous = {}
+            local current = game.player.head
+            while current.next ~= nil do
+                previous = current
+                current = current.next
+            end
+            previous.next = nil
+            return current
+        end
+    
+        local updateSegment = function (segment)
+            if game.player.direction == "right" then
+                local dx = game.player.head.x+1
+                if dx == columns+1 then dx = 0 end
+                segment.x = dx
+                segment.y = game.player.head.y
+            end
+            if game.player.direction == "left" then
+                local dx = game.player.head.x-1
+                if dx == -1 then dx = columns end
+                segment.x = dx
+                segment.y = game.player.head.y
+            end
+            if game.player.direction == "up" then
+                local dy = game.player.head.y-1
+                if dy == -1 then dy = rows end
+                segment.y = dy
+                segment.x = game.player.head.x
+            end
+            if game.player.direction == "down" then
+                local dy = game.player.head.y+1
+                if dy == rows+1 then dy = 0 end
+                segment.y = dy
+                segment.x = game.player.head.x
+            end
+        end
+    
+        local pushHead = function(segment)
+            segment.next = game.player.head
+            game.player.head = segment
+        end
+    
+        local updatePosition = function()
+            local segment = popTail()
+            updateSegment(segment)
+            pushHead(segment)
+        end
+    
+        local checkCollision = function()
+        end
+    
+        updatePosition()
+        checkCollision()    
+    end
+
+    local draw = function(game)
+        local drawSegment = function(current)
+            love.graphics.rectangle("fill", current.x, current.y,
+                scaledDrawSize , scaledDrawSize)
+        end
+    
+        local current = game.player.head
+        while current.next ~= nil do
+            drawSegment(current)
+            current = current.next
+        end
+        drawSegment(current)
+    end
+
     local p = {}
     p.color = { r = 1, g = 1, b = 1 }
     p.head = newBody()
     p.direction = "right"
+    p.update = update
+    p.draw = draw
     return p
 end
 
 local newGame = function()
+    local update = function(game)
+        if game.isOver then
+            game.player = nil
+        else
+            if game.player == nil then 
+                game.player = newPlayer()
+            end
+            game.player.update(game)
+        end
+    end
+
+    local draw = function(game)
+        if game.isOver then
+        else
+            game.player.draw(game)
+        end
+    end
+
     local g = {}
     g.isOver = true
     g.player = newPlayer()
+    g.update = update
+    g.draw = draw
     return g
-end
-
--- behavior
-local setFont = function()
-    local fontSize = cellSize
-    local font = love.graphics.newFont("nes.otf", fontSize)
-    love.graphics.setFont(font)
-end
-
-local drawPlayer = function()
-    local drawSegment = function(current)
-        love.graphics.rectangle("fill", current.x, current.y,
-            scaledDrawSize , scaledDrawSize)
-    end
-
-    local current = Game.player.head
-    while current.next ~= nil do
-        drawSegment(current)
-        current = current.next
-    end
-    drawSegment(current)
-end
-
-local updatePlayer = function()
-    local popTail = function()
-        local previous = {}
-        local current = Game.player.head
-        while current.next ~= nil do
-            previous = current
-            current = current.next
-        end
-        previous.next = nil
-        return current
-    end
-
-    local updateSegment = function (segment)
-        if Game.player.direction == "right" then
-            local dx = Game.player.head.x+1
-            if dx == columns+1 then dx = 0 end
-            segment.x = dx
-            segment.y = Game.player.head.y
-        end
-        if Game.player.direction == "left" then
-            local dx = Game.player.head.x-1
-            if dx == -1 then dx = columns end
-            segment.x = dx
-            segment.y = Game.player.head.y
-        end
-        if Game.player.direction == "up" then
-            local dy = Game.player.head.y-1
-            if dy == -1 then dy = rows end
-            segment.y = dy
-            segment.x = Game.player.head.x
-        end
-        if Game.player.direction == "down" then
-            local dy = Game.player.head.y+1
-            if dy == rows+1 then dy = 0 end
-            segment.y = dy
-            segment.x = Game.player.head.x
-        end
-    end
-
-    local pushHead = function(segment)
-        segment.next = Game.player.head
-        Game.player.head = segment
-    end
-
-    local updatePosition = function()
-        local segment = popTail()
-        updateSegment(segment)
-        pushHead(segment)
-    end
-
-    local checkCollision = function()
-    end
-
-    updatePosition()
-    checkCollision()
 end
 
 -- LÖVE --
 function love.load()
+    local loveSetup = function()
+        local setFont = function()
+            local fontSize = cellSize
+            local font = love.graphics.newFont("nes.otf", fontSize)
+            love.graphics.setFont(font)
+        end
+    
+        setFont()    
+    end
+
+    loveSetup()
     Game = newGame()
-    setFont()
 end
 
 function love.keypressed(k)
@@ -135,21 +160,11 @@ function love.keypressed(k)
 end
 
 function love.update(dt)
-    if Game.isOver then
-        Game.player = nil
-    else
-        if Game.player == nil then 
-            Game.player = newPlayer()
-        end
-        updatePlayer()
-    end
+    Game.update(Game)
 end
 
 function love.draw()
     love.graphics.scale(cellSize, cellSize)
 
-    if Game.isOver then
-    else
-        drawPlayer()
-    end
+    Game.draw(Game)
 end
