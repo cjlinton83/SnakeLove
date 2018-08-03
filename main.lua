@@ -109,6 +109,16 @@ local newPlayer = function()
 end
 
 local newGame = function()
+    local input = function(game, k)
+        if k == "q" or k == "escape" then love.event.quit() end
+        if k == "up" or k == "down" or k == "left" or k == "right" then
+            if game.player ~= nil then
+                game.player.direction = k 
+            end
+        end
+        if k == "space" then Game.isOver = not Game.isOver end
+    end
+
     local update = function(game)
         if game.isOver then
             game.player = nil
@@ -139,14 +149,15 @@ local newGame = function()
     local g = {}
     g.isOver = true
     g.player = newPlayer()
-    g.update = update
-    g.draw = draw
     g.score = 0
     g.strings = {
         gameOver = "Game Over",
         score = string.format("Score: %04d", tostring(g.score)),
         start = "Press <SPACE> to Begin",
     }
+    g.input = input
+    g.update = update
+    g.draw = draw
     return g
 end
 
@@ -167,13 +178,7 @@ function love.load()
 end
 
 function love.keypressed(k)
-    if k == "q" or k == "escape" then love.event.quit() end
-    if k == "up" or k == "down" or k == "left" or k == "right" then
-        if Game.player ~= nil then
-            Game.player.direction = k 
-        end
-    end
-    if k == "space" then Game.isOver = not Game.isOver end
+    Game.input(Game, k)
 end
 
 function love.update(dt)
