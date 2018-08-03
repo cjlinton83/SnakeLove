@@ -149,9 +149,9 @@ local newGame = function()
     g.player = newPlayer()
     g.score = 0
     g.strings = {
-        gameOver = "Game Over",
-        score = string.format("Score: %04d", tostring(g.score)),
-        start = "Press <SPACE> to Begin",
+        gameOver = string.upper("game over"),
+        score = string.upper(string.format("score: %04d", tostring(g.score))),
+        start = string.upper("press <space> to begin"),
     }
     g.input = input
     g.update = update
