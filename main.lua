@@ -12,9 +12,8 @@ local newSegment = function(x, y)
 end
 
 local newPlayer = function()
-    local bodySize = 3
-
     local newBody = function()
+        local bodySize = 3
         local x = math.floor(columns/2)
         local y = math.floor(rows/2)
         local head = newSegment(x, y)
@@ -26,10 +25,15 @@ local newPlayer = function()
         return head
     end
 
-    local update = function(game)
+    local p = {}
+    p.color = { r = 1, g = 1, b = 1 }
+    p.head = newBody()
+    p.direction = "right"
+
+    function p:update()
         local popTail = function()
             local previous = {}
-            local current = game.player.head
+            local current = self.head
             while current.next ~= nil do
                 previous = current
                 current = current.next
@@ -37,24 +41,24 @@ local newPlayer = function()
             previous.next = nil
             return current
         end
-    
-        local updateSegment = function (segment)
-            local dx = game.player.head.x
-            local dy = game.player.head.y
 
-            if game.player.direction == "right" then
+        local updateSegment = function (segment)
+            local dx = self.head.x
+            local dy = self.head.y
+
+            if self.direction == "right" then
                 dx = dx + 1
                 if dx == columns+1 then dx = 0 end
             end
-            if game.player.direction == "left" then
+            if self.direction == "left" then
                 dx = dx - 1
                 if dx == -1 then dx = columns end
             end
-            if game.player.direction == "up" then
+            if self.direction == "up" then
                 dy = dy - 1
                 if dy == -1 then dy = rows end
             end
-            if game.player.direction == "down" then
+            if self.direction == "down" then
                 dy = dy + 1
                 if dy == rows+1 then dy = 0 end
             end
@@ -62,12 +66,12 @@ local newPlayer = function()
             segment.x = dx
             segment.y = dy
         end
-    
+
         local pushHead = function(segment)
-            segment.next = game.player.head
-            game.player.head = segment
+            segment.next = self.head
+            self.head = segment
         end
-    
+
         local updatePosition = function()
             local segment = popTail()
             updateSegment(segment)
@@ -81,7 +85,7 @@ local newPlayer = function()
         checkCollision()    
     end
 
-    local draw = function(game)
+    function p:draw()
         love.graphics.scale(cellSize, cellSize)
         
         local drawSegment = function(current)
@@ -89,7 +93,7 @@ local newPlayer = function()
                 scaledDrawSize , scaledDrawSize)
         end
     
-        local current = game.player.head
+        local current = self.head
         while current.next ~= nil do
             drawSegment(current)
             current = current.next
@@ -97,53 +101,10 @@ local newPlayer = function()
         drawSegment(current)
     end
 
-    local p = {}
-    p.color = { r = 1, g = 1, b = 1 }
-    p.head = newBody()
-    p.direction = "right"
-    p.update = update
-    p.draw = draw
     return p
 end
 
 local newGame = function()
-    local input = function(game, k)
-        if k == "q" or k == "escape" then love.event.quit() end
-        if k == "up" or k == "down" or k == "left" or k == "right" then
-            if game.player ~= nil then
-                game.player.direction = k 
-            end
-        end
-        if k == "space" then Game.isOver = not Game.isOver end
-    end
-
-    local update = function(game)
-        if game.isOver then
-            game.player = nil
-        else
-            if game.player == nil then 
-                game.player = newPlayer()
-            end
-            game.player.update(game)
-        end
-    end
-
-    local drawGameOver = function(game)
-        love.graphics.origin()
-        love.graphics.print(game.strings.gameOver, cellSize, cellSize)
-        love.graphics.print(game.strings.score,
-            love.graphics.getWidth()-#game.strings.score * cellSize, cellSize)
-        love.graphics.print(game.strings.start, cellSize, 552)
-    end
-
-    local draw = function(game)
-        if game.isOver then
-            drawGameOver(game)
-        else
-            game.player.draw(game)
-        end
-    end
-
     local g = {}
     g.isOver = true
     g.player = newPlayer()
@@ -153,36 +114,61 @@ local newGame = function()
         score = string.upper(string.format("score: %04d", tostring(g.score))),
         start = string.upper("press <space> to begin"),
     }
-    g.input = input
-    g.update = update
-    g.draw = draw
+
+    function g:input(k)
+        if k == "q" or k == "escape" then love.event.quit() end
+        if k == "up" or k == "down" or k == "left" or k == "right" then
+            if self.player ~= nil then
+                self.player.direction = k 
+            end
+        end
+        if k == "space" then self.isOver = not self.isOver end
+    end
+
+    function g:update()
+        if self.isOver then
+            self.player = nil
+        else
+            if self.player == nil then 
+                self.player = newPlayer()
+            end
+            self.player:update()
+        end
+    end
+
+    function g:drawGameOver()
+        love.graphics.origin()
+        love.graphics.print(self.strings.gameOver, cellSize, cellSize)
+        love.graphics.print(self.strings.score,
+            love.graphics.getWidth()-#self.strings.score * cellSize, cellSize)
+        love.graphics.print(self.strings.start, cellSize, 552)
+    end
+
+    function g:draw()
+        if self.isOver then
+            self:drawGameOver()
+        else
+            self.player:draw()
+        end
+    end
+
     return g
 end
 
 -- LÖVE --
 function love.load()
-    local loveSetup = function()
-        local setFont = function()
-            local fontSize = cellSize
-            local font = love.graphics.newFont("nes.otf", fontSize)
-            love.graphics.setFont(font)
-        end
-    
-        setFont()    
-    end
-
-    loveSetup()
+    love.graphics.setFont(love.graphics.newFont("nes.otf", cellSize))
     Game = newGame()
 end
 
 function love.keypressed(k)
-    Game.input(Game, k)
+    Game:input(k)
 end
 
 function love.update(dt)
-    Game.update(Game)
+    Game:update()
 end
 
 function love.draw()
-    Game.draw(Game)
+    Game:draw()
 end
