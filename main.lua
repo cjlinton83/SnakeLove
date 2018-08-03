@@ -84,6 +84,8 @@ local newPlayer = function()
     end
 
     local draw = function(game)
+        love.graphics.scale(cellSize, cellSize)
+        
         local drawSegment = function(current)
             love.graphics.rectangle("fill", current.x, current.y,
                 scaledDrawSize , scaledDrawSize)
@@ -179,6 +181,5 @@ function love.update(dt)
 end
 
 function love.draw()
-    love.graphics.scale(cellSize, cellSize)
     Game.draw(Game)
 end
