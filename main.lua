@@ -45,27 +45,22 @@ local newPlayer = function()
             if game.player.direction == "right" then
                 dx = dx + 1
                 if dx == columns+1 then dx = 0 end
-                segment.x = dx
-                segment.y = dy
             end
             if game.player.direction == "left" then
                 dx = dx - 1
                 if dx == -1 then dx = columns end
-                segment.x = dx
-                segment.y = dy
             end
             if game.player.direction == "up" then
                 dy = dy - 1
                 if dy == -1 then dy = rows end
-                segment.y = dy
-                segment.x = dx
             end
             if game.player.direction == "down" then
                 dy = dy + 1
                 if dy == rows+1 then dy = 0 end
-                segment.y = dy
-                segment.x = dx
             end
+
+            segment.x = dx
+            segment.y = dy
         end
     
         local pushHead = function(segment)
