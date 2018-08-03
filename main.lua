@@ -30,7 +30,7 @@ local newPlayer = function()
     p.head = newBody()
     p.direction = "right"
 
-    function p:update()
+    function p:update(game)
         local popTail = function()
             local previous = {}
             local current = self.head
@@ -79,6 +79,22 @@ local newPlayer = function()
         end
     
         local checkCollision = function()
+            local current = self.head
+            local headX = current.x
+            local headY = current.y
+
+            -- check for collision with self
+            while current.next ~= nil do
+                if current.next.x == headX and current.next.y == headY then
+                    game.isOver = true
+                end
+                current = current.next
+            end
+            if current.x == headX and current.y == headY then
+                game.isOver = true
+            end
+
+            -- check for collision with food
         end
     
         updatePosition()
@@ -132,7 +148,7 @@ local newGame = function()
             if self.player == nil then 
                 self.player = newPlayer()
             end
-            self.player:update()
+            self.player:update(self)
         end
     end
 
