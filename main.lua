@@ -118,8 +118,17 @@ local newGame = function()
         end
     end
 
+    local drawGameOver = function(game)
+        love.graphics.origin()
+        love.graphics.print(game.strings.gameOver, cellSize, cellSize)
+        love.graphics.print(game.strings.score,
+            love.graphics.getWidth()-#game.strings.score * cellSize, cellSize)
+        love.graphics.print(game.strings.start, cellSize, 552)
+    end
+
     local draw = function(game)
         if game.isOver then
+            drawGameOver(game)
         else
             game.player.draw(game)
         end
@@ -130,6 +139,12 @@ local newGame = function()
     g.player = newPlayer()
     g.update = update
     g.draw = draw
+    g.score = 0
+    g.strings = {
+        gameOver = "Game Over",
+        score = string.format("Score: %04d", tostring(g.score)),
+        start = "Press <SPACE> to Begin",
+    }
     return g
 end
 
@@ -165,6 +180,5 @@ end
 
 function love.draw()
     love.graphics.scale(cellSize, cellSize)
-
     Game.draw(Game)
 end
