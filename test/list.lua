@@ -12,7 +12,7 @@ local init = function()
         return node
     end
 
-    --[[ DEBUG ONLY
+    ---[[ DEBUG ONLY
     function list:print(node)
         local printNode = function(node)
             for k, v in pairs(node) do
@@ -66,6 +66,15 @@ local init = function()
         else
             local tail = self:findTail()
             tail.next = node
+        end
+    end
+
+    function list:pushHead(node)
+        if self.head == nil then
+            self.head = node
+        else
+            node.next = self.head
+            self.head = node
         end
     end
 
