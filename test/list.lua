@@ -64,7 +64,7 @@ local init = function()
         if self.head == nil then
             self.head = node
         else
-            local tail = list:findTail()
+            local tail = self:findTail()
             tail.next = node
         end
     end
