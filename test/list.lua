@@ -60,6 +60,15 @@ local init = function()
         return current
     end
 
+    function list:pushTail(node)
+        if self.head == nil then
+            self.head = node
+        else
+            local tail = list:findTail()
+            tail.next = node
+        end
+    end
+
     return list
 end
 
