@@ -50,7 +50,7 @@ local init = function()
             current = current.next
         end
 
-        -- check for head as last node
+        -- check that head is only node in list
         if previous == current then
             self.head = nil
         else
