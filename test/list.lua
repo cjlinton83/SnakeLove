@@ -12,27 +12,6 @@ local init = function()
         return node
     end
 
-    ---[[ DEBUG ONLY
-    function list:print(node)
-        local printNode = function(node)
-            for k, v in pairs(node) do
-                print(k, v)
-            end
-        end
-
-        if node then
-            printNode(node)
-        else
-            local current = self.head
-            while current.next ~= nil do
-                printNode(current)
-                current = current.next
-            end
-            printNode(current)
-        end
-    end
-    --]]
-
     function list:findTail()
         local current = self.head
 
@@ -43,7 +22,7 @@ local init = function()
         while current.next ~= nil do
             current = current.next
         end
-        
+
         return current
     end
 
