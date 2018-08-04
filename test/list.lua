@@ -35,9 +35,15 @@ local init = function()
 
     function list:findTail()
         local current = self.head
+
+        if current == nil then
+            return nil
+        end
+
         while current.next ~= nil do
             current = current.next
         end
+        
         return current
     end
 
