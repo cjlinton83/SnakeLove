@@ -65,7 +65,7 @@ local new = function(x, y)
                 self.head = node
             end
 
-            node.next = head
+            node.next = head    -- needs local copy of head
             self.head = node
         end
 
