@@ -50,6 +50,11 @@ testListMethods = {}
 
         lu.assertEquals(l.head, { x=1, y=1 })
         lu.assertEquals(l:findTail(), { x=1, y=1})
+
+        l:pushTail(l:newNode(2, 2))
+        lu.assertEquals(l.head.x, 1)
+        lu.assertEquals(l.head.y, 1)
+        lu.assertEquals(l:findTail(), { x=2, y=2 })
     end
 -- end testListMethods
 
