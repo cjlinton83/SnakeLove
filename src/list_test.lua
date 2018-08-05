@@ -56,6 +56,31 @@ testListMethods = {}
         lu.assertEquals(l.head.y, 1)
         lu.assertEquals(l:findTail(), { x=2, y=2 })
     end
+
+    function testUpdateNode()
+        local l = list.new()
+        local n = l:newNode(1, 1)
+
+        lu.assertEquals(n, { x=1, y=1 })
+
+        l:updateNode(n, 2, 2)
+
+        lu.assertEquals(n, { x=2, y=2 })
+
+        l = list.new(3, 3)
+        l:pushTail(l:newNode(4, 4))
+        l:updateNode(l.head, 5, 5)
+
+        lu.assertEquals(l.head.x, 5)
+        lu.assertEquals(l.head.y, 5)
+        lu.assertEquals(l:findTail(), { x=4, y=4 })
+
+        l:updateNode(l:findTail(), 6, 6)
+        lu.assertEquals(l:findTail(), { x=6, y=6 })
+
+        lu.assertEquals(l.head.x, 5)
+        lu.assertEquals(l.head.y, 5)
+    end
 -- end testListMethods
 
 os.exit(lu.LuaUnit.run())

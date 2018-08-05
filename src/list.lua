@@ -35,6 +35,11 @@ local new = function(x, y)
             end
         end
 
+        function list:updateNode(node, x, y)
+            node.x = x
+            node.y = y
+        end
+
         initHead(list)
     return list
 end
