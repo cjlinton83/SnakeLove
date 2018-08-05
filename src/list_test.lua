@@ -82,12 +82,22 @@ testListMethods = {}
 
     function testPushTail()
         local l = list.new()
+        
         l:pushTail(l:newNode(1, 1))
-
         lu.assertEquals(l.head, { x=1, y=1 })
 
         l:pushTail(l:newNode(2, 2))
         lu.assertEquals(l.head, { x=1, y=1, next={ x=2, y=2 }})
+    end
+
+    function testPushHead()
+        local l = list.new()
+
+        l:pushHead(l:newNode(1, 1))
+        lu.assertEquals(l.head, { x=1, y=1 })
+
+        l:pushHead(l:newNode(2, 2))
+        lu.assertEquals(l.head, { x=2, y=2, next={ x=1, y=1 }})
     end
 
     testUpdateNode = {}

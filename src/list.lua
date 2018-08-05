@@ -15,7 +15,7 @@ local new = function(x, y)
         function list:findTail()
             local current = self.head
 
-            if not current then
+            if current == nil then
                 return nil
             end
 
@@ -30,7 +30,7 @@ local new = function(x, y)
             local previous = self.head
             local current = previous
 
-            if not current then 
+            if current == nil then 
                 return nil
             end
 
@@ -50,12 +50,23 @@ local new = function(x, y)
         end
 
         function list:pushTail(node)
-            if not self.head then
+            if self.head == nil then
                 self.head = node
             else
                 local tail = self:findTail()
                 tail.next = node
             end
+        end
+
+        function list:pushHead(node)
+            local head = self.head
+
+            if head == nil then
+                self.head = node
+            end
+
+            node.next = head
+            self.head = node
         end
 
         function list:updateNode(node, x, y)
