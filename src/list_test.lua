@@ -49,38 +49,44 @@ testListMethods = {}
         l:pushTail(l:newNode(1, 1))
 
         lu.assertEquals(l.head, { x=1, y=1 })
-        lu.assertEquals(l:findTail(), { x=1, y=1})
 
         l:pushTail(l:newNode(2, 2))
-        lu.assertEquals(l.head.x, 1)
-        lu.assertEquals(l.head.y, 1)
-        lu.assertEquals(l:findTail(), { x=2, y=2 })
+        lu.assertEquals(l.head, { x=1, y=1, next={ x=2, y=2 }})
     end
 
-    function testUpdateNode()
-        local l = list.new()
-        local n = l:newNode(1, 1)
+    testUpdateNode = {}
+        function testUpdateSingleUnattachedNode()
+            local l = list.new()
+            local n = l:newNode(1, 1)
 
-        lu.assertEquals(n, { x=1, y=1 })
+            lu.assertEquals(n, { x=1, y=1 })
 
-        l:updateNode(n, 2, 2)
+            l:updateNode(n, 2, 2)
+            lu.assertEquals(n, { x=2, y=2 })
+        end
 
-        lu.assertEquals(n, { x=2, y=2 })
+        function testUpdateSingleAttachedNode()
+            local l = list.new(3, 3)
+            
+            l:updateNode(l.head, 4, 4)
+            lu.assertEquals(l.head, { x=4, y=4 })
 
-        l = list.new(3, 3)
-        l:pushTail(l:newNode(4, 4))
-        l:updateNode(l.head, 5, 5)
+            l:updateNode(l:findTail(), 5, 5)
+            lu.assertEquals(l.head, { x=5, y=5 })
+        end
 
-        lu.assertEquals(l.head.x, 5)
-        lu.assertEquals(l.head.y, 5)
-        lu.assertEquals(l:findTail(), { x=4, y=4 })
+        function testUpdateMultipleAttachedNodes()
+            local l = list.new(6, 6)
+            l:pushTail(l:newNode(7, 7))
 
-        l:updateNode(l:findTail(), 6, 6)
-        lu.assertEquals(l:findTail(), { x=6, y=6 })
+            lu.assertEquals(l.head, { x=6, y=6, next={ x=7, y=7 }})
 
-        lu.assertEquals(l.head.x, 5)
-        lu.assertEquals(l.head.y, 5)
-    end
+            l:updateNode(l.head, 8, 8)
+            l:updateNode(l:findTail(), 9, 9)
+
+            lu.assertEquals(l.head, { x=8, y=8, next={ x=9, y=9 }})
+        end
+    -- end testUpdateNode
 -- end testListMethods
 
 os.exit(lu.LuaUnit.run())
