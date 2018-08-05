@@ -44,6 +44,42 @@ testListMethods = {}
         lu.assertEquals(tail, nil)
     end
 
+    testPopTail = {}
+        function testPopHeadless()
+            local l = list.new()
+            local tail = l:popTail()
+
+            lu.assertEquals(tail, nil)
+        end
+
+        function testPopSingle()
+            local l = list.new(1, 1)
+            local tail = l:popTail()
+
+            lu.assertEquals(tail, { x=1, y=1 })
+            lu.assertEquals(l.head, nil)
+        end
+
+        function testPopMulti()
+            local l = list.new(1, 1)
+            l:pushTail(l:newNode(2, 2))
+
+            lu.assertEquals(l.head, { x=1, y=1, next={ x=2, y=2 }})
+
+            local tail = l:popTail()
+            lu.assertEquals(tail, { x=2, y=2 })
+
+            -- assert head doesn't have a next
+            lu.assertEquals(l.head, { x=1, y=1 })
+
+            tail = l:popTail()
+            lu.assertEquals(tail, { x=1, y=1 })
+
+            -- assert head is empty
+            lu.assertEquals(l.head, nil)
+        end
+    -- end testPopTail
+
     function testPushTail()
         local l = list.new()
         l:pushTail(l:newNode(1, 1))

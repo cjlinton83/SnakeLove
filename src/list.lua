@@ -26,6 +26,29 @@ local new = function(x, y)
             return current
         end
 
+        function list:popTail()
+            local previous = self.head
+            local current = previous
+
+            if not current then 
+                return nil
+            end
+
+            while current.next ~= nil do 
+                previous = current
+                current = current.next
+            end
+
+            if previous == current then
+                self.head = nil
+                return current
+            end
+
+            previous.next = nil
+
+            return current
+        end
+
         function list:pushTail(node)
             if not self.head then
                 self.head = node
