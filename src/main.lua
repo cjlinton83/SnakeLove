@@ -40,10 +40,12 @@ Draw = {}
 
     function Draw.player()
         love.graphics.scale(Game.cellSize, Game.cellSize)
-        love.graphics.setColor(Game.player.color.r, Game.player.color.g, Game.player.color.b)
+        love.graphics.setColor(Game.player.color.r, Game.player.color.g,
+            Game.player.color.b)
 
         local drawSegment = function(current)
-            love.graphics.rectangle("fill", current.x, current.y, Game.scaleFactor, Game.scaleFactor)
+            love.graphics.rectangle("fill", current.x, current.y, Game.scaleFactor,
+                Game.scaleFactor)
         end
 
         local current = Game.player.body.head
