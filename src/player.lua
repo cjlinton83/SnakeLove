@@ -13,7 +13,7 @@ local new = function(color, count, x, y)
 
     local player = {}
         player.color = color
-        player.count = count
+        player.bodySegmentCount = count
         player.body = initBody()
     return player
 end
