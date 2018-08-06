@@ -8,11 +8,13 @@ end
 function testNewInstance()
     local width, height = 800, 600
     local cellSize = 20
-    g = game.new(width, height, cellSize)
+    local scaleFactor = 0.8
+    g = game.new(width, height, cellSize, scaleFactor)
 
     lu.assertEquals(g.gameOver, true)
     lu.assertEquals(g.score, 0)
     lu.assertEquals(g.cellSize, cellSize)
+    lu.assertEquals(g.scaleFactor, scaleFactor)
     lu.assertEquals(g.columns, width/cellSize - 1)
     lu.assertEquals(g.rows, height/cellSize - 1)
 
