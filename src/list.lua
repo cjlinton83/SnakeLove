@@ -1,13 +1,15 @@
 local new = function(x, y)
-    local initHead = function(list)
+    local initHead = function()
         if not(x and y) then
-            list.head = nil
+            return nil
         else
-            list.head = list:newNode(x, y)
+            return { x=x, y=y }
         end
     end
 
-    list = {}
+    local list = {}
+        list.head = initHead()
+
         function list:newNode(x, y)
             return { x=x, y=y }
         end
@@ -73,8 +75,6 @@ local new = function(x, y)
             node.x = x
             node.y = y
         end
-
-        initHead(list)
     return list
 end
 
