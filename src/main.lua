@@ -49,10 +49,10 @@ Draw = {}
         end
 
         local current = Game.player.body.head
-        while current.next ~= nil do
-            drawSegment(current)
-            current = current.next
-        end
         drawSegment(current)
+        while current.next ~= nil do
+            current = current.next
+            drawSegment(current)
+        end
     end
 -- end draw table
