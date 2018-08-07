@@ -15,12 +15,12 @@ function love.update(dt)
 end
 
 function love.draw()
-    Draw.debugData()
+    Draw.debug()
     Draw.player()
 end
 
 Draw = {}
-    function Draw.debugData()
+    function Draw.debug()
         love.graphics.origin()
         love.graphics.setColor(1, 1, 1)
 
