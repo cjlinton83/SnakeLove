@@ -10,11 +10,12 @@ end
 
 function love.keypressed(k)
     if k == "escape" then love.event.quit() end
-    
+
     Game:setInput(k)
 end
 
 function love.update(dt)
+    Game:update()
 end
 
 function love.draw()
