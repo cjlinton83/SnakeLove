@@ -15,7 +15,14 @@ local new = function(width, height, cellSize, scaleFactor)
         game.scaleFactor = scaleFactor
         game.columns = width/cellSize - 1
         game.rows = height/cellSize - 1
+        game.direction = "right"
         game.player = initPlayer(game.columns, game.rows)
+
+        function game:setInput(key)
+            if key == "up" or key == "right" or key == "down" or key == "left" then
+                self.direction = key
+            end
+        end
     return game
 end
 
