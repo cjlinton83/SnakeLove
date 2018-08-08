@@ -1,4 +1,4 @@
-local new = function(color, count, x, y)
+local new = function(color, count, x, y, direction)
     local initBody = function()
         local list = require("list")
         local body = list.new(x, y)
@@ -14,7 +14,12 @@ local new = function(color, count, x, y)
     local player = {}
         player.color = color
         player.bodySegmentCount = count
+        player.direction = direction
         player.body = initBody()
+
+        function player:setDirection(value)
+            self.direction = value
+        end
     return player
 end
 

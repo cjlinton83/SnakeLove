@@ -15,12 +15,12 @@ testGameNew = {}
         lu.assertEquals(self.g.scaleFactor, scaleFactor)
         lu.assertEquals(self.g.columns, width/cellSize - 1)
         lu.assertEquals(self.g.rows, height/cellSize - 1)
-        lu.assertEquals(self.g.direction, "right")
 
         lu.assertEquals(self.g.player.color, { r=1, g=1, b=1 })
         lu.assertEquals(self.g.player.bodySegmentCount, 3)
         lu.assertEquals(self.g.player.body.head.x, 19)
         lu.assertEquals(self.g.player.body.head.y, 14)
+        lu.assertEquals(self.g.player.direction, "right")
     end
 -- end testGameNew
 
@@ -29,16 +29,16 @@ testGameMethods = {}
 
     function testGameMethods:testSetInput()
         self.g:setInput("right")
-        lu.assertEquals(self.g.direction, "right")
+        lu.assertEquals(self.g.player.direction, "right")
 
         self.g:setInput("left")
-        lu.assertEquals(self.g.direction, "left")
+        lu.assertEquals(self.g.player.direction, "left")
 
         self.g:setInput("up")
-        lu.assertEquals(self.g.direction, "up")
+        lu.assertEquals(self.g.player.direction, "up")
 
         self.g:setInput("down")
-        lu.assertEquals(self.g.direction, "down")
+        lu.assertEquals(self.g.player.direction, "down")
     end
 -- end testGameMethods
 

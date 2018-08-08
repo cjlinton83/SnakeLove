@@ -5,7 +5,8 @@ local new = function(width, height, cellSize, scaleFactor)
         local y = math.floor(rows/2)
         local color = { r = 1, g = 1, b = 1 }
         local bodySegmentCount = 3
-        return player.new(color, bodySegmentCount, x, y)
+        local direction = "right"
+        return player.new(color, bodySegmentCount, x, y, direction)
     end
 
     local game = {}
@@ -15,12 +16,11 @@ local new = function(width, height, cellSize, scaleFactor)
         game.scaleFactor = scaleFactor
         game.columns = width/cellSize - 1
         game.rows = height/cellSize - 1
-        game.direction = "right"
         game.player = initPlayer(game.columns, game.rows)
 
         function game:setInput(key)
             if key == "up" or key == "right" or key == "down" or key == "left" then
-                self.direction = key
+                self.player.direction = key
             end
         end
     return game

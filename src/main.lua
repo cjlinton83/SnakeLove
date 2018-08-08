@@ -15,7 +15,7 @@ function love.keypressed(k)
 end
 
 function love.update(dt)
-    Game:update()
+    -- Game:update()
 end
 
 function love.draw()
@@ -34,7 +34,6 @@ Draw = {}
         love.graphics.print(string.format("Game.scaleFactor: %g", Game.scaleFactor), 20, 80)
         love.graphics.print(string.format("Game.columns: %d", Game.columns), 20, 100)
         love.graphics.print(string.format("Game.rows: %d", Game.rows), 20, 120)
-        love.graphics.print(string.format("Game.directon: %s", Game.direction), 20, 140)
 
         love.graphics.print(string.format("Game.player.color: { r=%d, g=%d, b=%d }",
             Game.player.color.r, Game.player.color.g, Game.player.color.b), 240, 20)
@@ -42,6 +41,8 @@ Draw = {}
             Game.player.bodySegmentCount), 240, 40)
         love.graphics.print(string.format("Game.player.body.head: { x=%d, y=%d }",
             Game.player.body.head.x, Game.player.body.head.y), 240, 60)
+        love.graphics.print(string.format("Game.player.direction: %s", 
+            Game.player.direction), 240, 80)
     end
 
     function Draw.player()
