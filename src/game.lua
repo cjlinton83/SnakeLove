@@ -23,6 +23,10 @@ local new = function(width, height, cellSize, scaleFactor)
                 self.player.direction = key
             end
         end
+
+        function game:update()
+            self.player:update(self.columns, self.rows)
+        end
     return game
 end
 
