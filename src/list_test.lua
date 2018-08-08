@@ -1,26 +1,21 @@
-local lu = require("luaunit")
-local list = require("list")
+lu = require("luaunit")
+list = require("list")
 
-function testListIsTable()
-    lu.assertIsTable(list)
-end
+testListNew = {}
+    testListNew.l1 = list.new()
+    testListNew.l2 = list.new(2, 2)
+    
+    function testListNew:testMulti()
+        lu.assertEquals(self.l1.head, nil)
+        lu.assertEquals(self.l2.head, { x=2, y=2 })
 
-testNew = {}
-    -- Main data of list is head plus associated methods
-    function testNew.testInstances()
-        local l1 = list.new()
-        local l2 = list.new(2, 2)
+        self.l1 = list.new(3, 3)
+        self.l2 = list.new(4, 4)
 
-        lu.assertEquals(l1.head, nil)
-        lu.assertEquals(l2.head, { x=2, y=2 })
-
-        l1 = list.new(3, 3)
-        l2 = list.new(4, 4)
-
-        lu.assertEquals(l1.head, { x=3, y=3 })
-        lu.assertEquals(l2.head, { x=4, y=4 })
+        lu.assertEquals(self.l1.head, { x=3, y=3 })
+        lu.assertEquals(self.l2.head, { x=4, y=4 })
     end
--- end testNew
+-- end testListNew
 
 testListMethods = {}
     function testListMethods.testNewNode()
@@ -45,14 +40,14 @@ testListMethods = {}
     end
 
     testPopTail = {}
-        function testPopTail.testPopHeadless()
+        function testPopTail.testHeadless()
             local l = list.new()
             local tail = l:popTail()
 
             lu.assertEquals(tail, nil)
         end
 
-        function testPopTail.testPopSingle()
+        function testPopTail.testSingle()
             local l = list.new(1, 1)
             local tail = l:popTail()
 
@@ -60,7 +55,7 @@ testListMethods = {}
             lu.assertEquals(l.head, nil)
         end
 
-        function testPopTail.testPopMulti()
+        function testPopTail.testMulti()
             local l = list.new(1, 1)
             l:pushTail(l:newNode(2, 2))
 
@@ -101,7 +96,7 @@ testListMethods = {}
     end
 
     testUpdateNode = {}
-        function testUpdateNode.testSingleUnattachedNode()
+        function testUpdateNode.testSingleUnattached()
             local l = list.new()
             local n = l:newNode(1, 1)
 
@@ -111,7 +106,7 @@ testListMethods = {}
             lu.assertEquals(n, { x=2, y=2 })
         end
 
-        function testUpdateNode.testSingleAttachedNode()
+        function testUpdateNode.testSingleAttached()
             local l = list.new(3, 3)
             
             l:updateNode(l.head, 4, 4)
@@ -121,7 +116,7 @@ testListMethods = {}
             lu.assertEquals(l.head, { x=5, y=5 })
         end
 
-        function testUpdateNode.testMultipleAttachedNodes()
+        function testUpdateNode.testMulti()
             local l = list.new(6, 6)
             l:pushTail(l:newNode(7, 7))
 
