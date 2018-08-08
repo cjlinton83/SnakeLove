@@ -16,10 +16,6 @@ local new = function(color, count, x, y, direction)
         player.bodySegmentCount = count
         player.direction = direction
         player.body = initBody()
-
-        function player:setDirection(value)
-            self.direction = value
-        end
     return player
 end
 
