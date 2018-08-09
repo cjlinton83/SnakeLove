@@ -45,6 +45,9 @@ testGameMethods = {}
 
         self.g:setInput("right")
         lu.assertEquals(self.g.player.direction, "right")
+
+        self.g:setInput("space")
+        lu.assertEquals(self.g.gameOver, false)
     end
 -- end testGameMethods
 
