@@ -16,13 +16,18 @@ function love.keypressed(k)
 end
 
 function love.update(dt)
-    Game:update()
+    if not Game.gameOver then
+        Game:update()
+    end
 end
 
 function love.draw()
-    Draw.player()
-    -- Draw.gameOver()
-    Draw.debug()
+    if not Game.gameOver then
+        Draw.player()
+        Draw.debug()
+    else
+        Draw.gameOver()
+    end
 end
 
 Draw = {}

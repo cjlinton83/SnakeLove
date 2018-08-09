@@ -22,6 +22,9 @@ local new = function(width, height, cellSize, scaleFactor)
             if key == "up" or key == "right" or key == "down" or key == "left" then
                 self.player.direction = key
             end
+            if key == "space" and self.gameOver then
+                self.gameOver = false
+            end
         end
 
         function game:update()

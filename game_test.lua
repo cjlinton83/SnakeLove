@@ -42,6 +42,9 @@ testGameMethods = {}
 
         self.g:setInput("chris")
         lu.assertEquals(self.g.player.direction, "down")
+
+        self.g:setInput("right")
+        lu.assertEquals(self.g.player.direction, "right")
     end
 -- end testGameMethods
 
