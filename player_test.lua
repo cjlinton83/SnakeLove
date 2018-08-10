@@ -154,6 +154,34 @@ testPlayerMethods = {}
 
     -- check 3 segment collision
     function testPlayerMethods.testUpdate_Collisions_3Segments()
+        local p = player.new({}, 3, 5, 5, "right")
+
+        p.body.head = { x=3, y=5, next={ x=4, y=5, next={ x=5, y=5 }}}
+        local gameOver = p:update(columns, rows)
+        lu.assertEquals(p.body.head,
+            { x=3, y=5, next={ x=4, y=5, next={ x=5, y=5 }}})
+        lu.assertEquals(gameOver, true)
+
+        p.direction = "left"
+        p.body.head = { x=5, y=5, next={ x=4, y=5, next={ x=3, y=5 }}}
+        gameOver = p:update(columns, rows)
+        lu.assertEquals(p.body.head,
+            { x=5, y=5, next={ x=4, y=5, next={ x=3, y=5 }}})
+        lu.assertEquals(gameOver, true)
+
+        p.direction = "up"
+        p.body.head = { x=5, y=5, next={ x=5, y=4, next={ x=5, y=3 }}}
+        gameOver = p:update(columns, rows)
+        lu.assertEquals(p.body.head,
+            { x=5, y=5, next={ x=5, y=4, next={ x=5, y=3 }}})
+        lu.assertEquals(gameOver, true)
+
+        p.direction = "down"
+        p.body.head = { x=5, y=5, next={ x=5, y=6, next={ x=5, y=7 }}}
+        gameOver = p:update(columns, rows)
+        lu.assertEquals(p.body.head,
+            { x=5, y=5, next={ x=5, y=6, next={ x=5, y=7 }}})
+        lu.assertEquals(gameOver, true)
     end
 -- end testPlayerMethods
 
