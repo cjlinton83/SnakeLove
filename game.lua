@@ -10,26 +10,12 @@ local new = function(width, height, cellSize, scaleFactor)
     end
 
     local game = {}
-        game.gameOver = true
         game.score = 0
         game.cellSize = cellSize
         game.scaleFactor = scaleFactor
         game.columns = width/cellSize - 1
         game.rows = height/cellSize - 1
         game.player = initPlayer(game.columns, game.rows)
-
-        function game:setInput(key)
-            if key == "up" or key == "right" or key == "down" or key == "left" then
-                self.player.direction = key
-            end
-            if key == "space" and self.gameOver then
-                self.gameOver = false
-            end
-        end
-
-        function game:update()
-            self.gameOver = self.player:update(self.columns, self.rows)
-        end
     return game
 end
 

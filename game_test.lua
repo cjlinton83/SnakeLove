@@ -9,7 +9,6 @@ testGameNew = {}
     testGameNew.g = game.new(width, height, cellSize, scaleFactor)
 
     function testGameNew:testSingle()
-        lu.assertEquals(self.g.gameOver, true)
         lu.assertEquals(self.g.score, 0)
         lu.assertEquals(self.g.cellSize, cellSize)
         lu.assertEquals(self.g.scaleFactor, scaleFactor)
@@ -25,30 +24,6 @@ testGameNew = {}
 -- end testGameNew
 
 testGameMethods = {}
-    testGameMethods.g = game.new(width, height, cellSize, scaleFactor)
-
-    function testGameMethods:testSetInput()
-        self.g:setInput("right")
-        lu.assertEquals(self.g.player.direction, "right")
-
-        self.g:setInput("left")
-        lu.assertEquals(self.g.player.direction, "left")
-
-        self.g:setInput("up")
-        lu.assertEquals(self.g.player.direction, "up")
-
-        self.g:setInput("down")
-        lu.assertEquals(self.g.player.direction, "down")
-
-        self.g:setInput("chris")
-        lu.assertEquals(self.g.player.direction, "down")
-
-        self.g:setInput("right")
-        lu.assertEquals(self.g.player.direction, "right")
-
-        self.g:setInput("space")
-        lu.assertEquals(self.g.gameOver, false)
-    end
 -- end testGameMethods
 
 os.exit(lu.LuaUnit.run())

@@ -6,35 +6,18 @@ function love.load()
     local scaleFactor = 0.8
 
     Game = game.new(w, h, cellSize, scaleFactor)
-    GameFont = love.graphics.newFont("nes.otf", cellSize)
 end
 
 function love.keypressed(k)
-    if k == "escape" then love.event.quit() end
 
-    Game:setInput(k)
 end
 
-SumDT = 0
-Refresh = 0.080
 function love.update(dt)
-    
-    if not Game.gameOver then
-        SumDT = SumDT + dt
-        if SumDT >= Refresh then
-            Game:update()
-            SumDT = SumDT - Refresh
-        end
-    end
+
 end
 
 function love.draw()
-    if not Game.gameOver then
-        Draw.player()
-        Draw.debug()
-    else
-        Draw.gameOver()
-    end
+
 end
 
 Draw = {}
@@ -79,7 +62,7 @@ Draw = {}
 
     function Draw.gameOver()
         local defaultFont = love.graphics.getFont()
-        love.graphics.setFont(GameFont)
+        love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
         love.graphics.origin()
         love.graphics.setColor(1, 1, 1)
 
