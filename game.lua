@@ -28,7 +28,7 @@ local new = function(width, height, cellSize, scaleFactor)
         end
 
         function game:update()
-            self.player:update(self.columns, self.rows)
+            self.gameOver = self.player:update(self.columns, self.rows)
         end
     return game
 end

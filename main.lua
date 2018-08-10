@@ -15,9 +15,16 @@ function love.keypressed(k)
     Game:setInput(k)
 end
 
+SumDT = 0
+Refresh = 0.080
 function love.update(dt)
+    
     if not Game.gameOver then
-        Game:update()
+        SumDT = SumDT + dt
+        if SumDT >= Refresh then
+            Game:update()
+            SumDT = SumDT - Refresh
+        end
     end
 end
 
