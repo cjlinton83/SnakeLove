@@ -29,6 +29,7 @@ testPlayerMethods = {}
         local p = player.new({}, 1, 5, 5, "right")
         p:update(columns, rows)
         lu.assertEquals(p.body.head, { x=6, y=5 })
+        
 
         -- out-of-bounds
         p = player.new({}, 1, columns, 5, "right")
@@ -63,7 +64,11 @@ testPlayerMethods = {}
         -- in-bounds
         p = player.new({}, 2, 5, 5, "left")
         p:update(columns, rows)
-        lu.assertEquals(p.body.head, { x=4 , y=5, next={ x=5, y=5 }})
+        lu.assertEquals(p.body.head, { x=5 , y=5, next={ x=4, y=5 }})
+
+        p = player.new({}, 3, 5, 5, "left")
+        p:update(columns, rows)
+        lu.assertEquals(p.body.head, { x=5, y=5, next={ x=4, y=5, next={ x=3, y=5}}})
 
         -- out-of-bounds
         p = player.new({}, 2, 0, 5, "left")
@@ -117,6 +122,38 @@ testPlayerMethods = {}
         p = player.new({}, 2, 5, rows, "down")
         p:update(columns, rows)
         lu.assertEquals(p.body.head, { x=5, y=0, next={ x=5, y=rows }})
+    end
+
+    -- check 2 segment collision
+    function testPlayerMethods.testUpdate_Collisions_2Segments()
+        local p = player.new({}, 2, 5, 5, "right")
+        
+        p.body.head = { x=4, y=5, next={ x=5, y=5 }}
+        local gameOver = p:update(columns, rows)
+        lu.assertEquals(p.body.head, { x=4, y=5, next={ x=5, y=5 }})
+        lu.assertEquals(gameOver, true)
+
+        p.direction = "left"
+        p.body.head =  { x=5, y=5, next={ x=4, y=5 }}
+        gameOver = p:update(columns, rows)
+        lu.assertEquals(p.body.head, { x=5, y=5, next={ x=4, y=5 }})
+        lu.assertEquals(gameOver, true)
+
+        p.direction = "up"
+        p.body.head = { x=5, y=5, next={ x=5, y=4 }}
+        gameOver = p:update(columns, rows)
+        lu.assertEquals(p.body.head, { x=5, y=5, next={ x=5, y=4 }})
+        lu.assertEquals(gameOver, true)
+
+        p.direction = "down"
+        p.body.head = { x=5, y=5, next={ x=5, y=6 }}
+        gameOver = p:update(columns, rows)
+        lu.assertEquals(p.body.head, { x=5, y=5, next={ x=5, y=6 }})
+        lu.assertEquals(gameOver, true)
+    end
+
+    -- check 3 segment collision
+    function testPlayerMethods.testUpdate_Collisions_3Segments()
     end
 -- end testPlayerMethods
 

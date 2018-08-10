@@ -47,10 +47,9 @@ local new = function(color, count, x, y, direction)
                 local gameOver = false
 
                 -- 2 segment collision on update
-                -- tail == newHead, therefore regression on 2 segment body
                 if tail.x == deltaValues.dx and tail.y == deltaValues.dy then
                     gameOver = true
-                else -- collision with any part of body / regression 3+ segment
+                else -- collision with any part of body 3+ segment
                     local current = self.body.head
                     while current.next ~= nil do
                         if current.next.x == deltaValues.dx and
