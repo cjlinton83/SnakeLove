@@ -30,7 +30,6 @@ testPlayerMethods = {}
         p:update(columns, rows)
         lu.assertEquals(p.body.head, { x=6, y=5 })
         
-
         -- out-of-bounds
         p = player.new({}, 1, columns, 5, "right")
         p:update(columns, rows)
