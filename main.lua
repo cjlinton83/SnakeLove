@@ -9,15 +9,21 @@ function love.load()
 end
 
 function love.keypressed(k)
+    Game:keypressed(k)
 
+    if Game.quit == true then love.event.quit() end
 end
 
 function love.update(dt)
-
 end
 
 function love.draw()
-
+    if Game.gameOver then
+        Draw.gameOver()
+    else
+        Draw.player()
+    end
+    Draw.debug()
 end
 
 Draw = {}
@@ -25,12 +31,13 @@ Draw = {}
         love.graphics.origin()
         love.graphics.setColor(0, 1, 0)
 
-        love.graphics.print(string.format("Game.gameOver: %s", Game.gameOver), 20, 20)
         love.graphics.print(string.format("Game.score: %d", Game.score), 20, 40)
         love.graphics.print(string.format("Game.cellSize: %d", Game.cellSize), 20, 60)
         love.graphics.print(string.format("Game.scaleFactor: %g", Game.scaleFactor), 20, 80)
         love.graphics.print(string.format("Game.columns: %d", Game.columns), 20, 100)
         love.graphics.print(string.format("Game.rows: %d", Game.rows), 20, 120)
+        love.graphics.print(string.format("Game.gameOver: %s", Game.gameOver), 20, 140)
+        love.graphics.print(string.format("Game.quit: %s", Game.quit), 20, 160)
 
         love.graphics.print(string.format("Game.player.color: { r=%d, g=%d, b=%d }",
             Game.player.color.r, Game.player.color.g, Game.player.color.b), 240, 20)
@@ -45,7 +52,7 @@ Draw = {}
     function Draw.player()
         love.graphics.scale(Game.cellSize, Game.cellSize)
         love.graphics.setColor(Game.player.color.r, Game.player.color.g,
-            Game.player.color.b)
+                Game.player.color.b)
 
         local drawSegment = function(current)
             love.graphics.rectangle("fill", current.x, current.y, Game.scaleFactor,
@@ -58,6 +65,7 @@ Draw = {}
             current = current.next
             drawSegment(current)
         end
+
     end
 
     function Draw.gameOver()

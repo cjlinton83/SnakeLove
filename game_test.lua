@@ -6,24 +6,67 @@ cellSize = 20
 scaleFactor = 0.8
 
 testGameNew = {}
-    testGameNew.g = game.new(width, height, cellSize, scaleFactor)
-
     function testGameNew:testSingle()
-        lu.assertEquals(self.g.score, 0)
-        lu.assertEquals(self.g.cellSize, cellSize)
-        lu.assertEquals(self.g.scaleFactor, scaleFactor)
-        lu.assertEquals(self.g.columns, width/cellSize - 1)
-        lu.assertEquals(self.g.rows, height/cellSize - 1)
+        g = game.new(width, height, cellSize, scaleFactor)
 
-        lu.assertEquals(self.g.player.color, { r=1, g=1, b=1 })
-        lu.assertEquals(self.g.player.bodySegmentCount, 3)
-        lu.assertEquals(self.g.player.body.head.x, 19)
-        lu.assertEquals(self.g.player.body.head.y, 14)
-        lu.assertEquals(self.g.player.direction, "right")
+        lu.assertEquals(g.score, 0)
+        lu.assertEquals(g.cellSize, cellSize)
+        lu.assertEquals(g.scaleFactor, scaleFactor)
+        lu.assertEquals(g.columns, width/cellSize - 1)
+        lu.assertEquals(g.rows, height/cellSize - 1)
+        lu.assertEquals(g.gameOver, true)
+
+        lu.assertEquals(g.player.color, { r=1, g=1, b=1 })
+        lu.assertEquals(g.player.bodySegmentCount, 3)
+        lu.assertEquals(g.player.body.head.x, 19)
+        lu.assertEquals(g.player.body.head.y, 14)
+        lu.assertEquals(g.player.direction, "right")
     end
 -- end testGameNew
 
 testGameMethods = {}
+    function testGameMethods:testKeypressed_GameOver()
+        g = game.new(width, height, cellSize, scaleFactor)
+
+        g.gameOver = true
+        g:keypressed("space")
+        lu.assertEquals(g.gameOver, false)
+
+        lu.assertEquals(g.quit, false)
+        g:keypressed("escape")
+        lu.assertEquals(g.quit, true)
+
+        g.gameOver = false
+        g:keypressed("space")
+        lu.assertEquals(g.gameOver, false)
+
+        g.quit = false
+        lu.assertEquals(g.quit, false)
+        g:keypressed("escape")
+        lu.assertEquals(g.quit, true)
+    end
+
+    function testGameMethods:testKeyPressed_GameNotOver()
+        g = game.new(width, height, cellSize, scaleFactor)
+
+        g.gameOver = false
+
+        g:keypressed("up")
+        lu.assertEquals(g.player.direction, "up")
+
+        g:keypressed("down")
+        lu.assertEquals(g.player.direction, "down")
+
+        g:keypressed("left")
+        lu.assertEquals(g.player.direction, "left")
+
+        g:keypressed("right")
+        lu.assertEquals(g.player.direction, "right")
+
+        lu.assertEquals(g.quit, false)
+        g:keypressed("escape")
+        lu.assertEquals(g.quit, true)
+    end
 -- end testGameMethods
 
 os.exit(lu.LuaUnit.run())

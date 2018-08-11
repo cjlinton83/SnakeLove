@@ -16,6 +16,23 @@ local new = function(width, height, cellSize, scaleFactor)
         game.columns = width/cellSize - 1
         game.rows = height/cellSize - 1
         game.player = initPlayer(game.columns, game.rows)
+        game.gameOver = true
+        game.quit = false
+
+        function game:keypressed(key)
+            if self.gameOver then
+                if key == "space" then
+                    self.gameOver = false
+                end
+            else
+                if key == "up" or key == "down" or
+                    key == "left" or key == "right" then
+                        self.player.direction = key
+                end
+            end
+
+            if key == "escape" then self.quit = true end
+        end
     return game
 end
 
