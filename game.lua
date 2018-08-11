@@ -10,18 +10,25 @@ local new = function(width, height, cellSize, scaleFactor)
     end
 
     local game = {}
-        game.score = 0
         game.cellSize = cellSize
         game.scaleFactor = scaleFactor
         game.columns = width/cellSize - 1
         game.rows = height/cellSize - 1
-        game.player = initPlayer(game.columns, game.rows)
         game.gameOver = true
         game.quit = false
+        game.refreshRate = 0.080
+        
+        function game:initPlayState()
+            self.score = 0
+            self.sumDT = 0
+            self.player = initPlayer(self.columns, self.rows)
+        end
+        game:initPlayState()
 
         function game:keypressed(key)
             if self.gameOver then
                 if key == "space" then
+                    self:initPlayState()
                     self.gameOver = false
                 end
             else
@@ -32,6 +39,17 @@ local new = function(width, height, cellSize, scaleFactor)
             end
 
             if key == "escape" then self.quit = true end
+        end
+
+        function game:update(dt)
+            if not self.gameOver then
+                self.sumDT = self.sumDT + dt
+
+                if self.sumDT >= self.refreshRate then
+                    self.gameOver = self.player:update(self.columns, self.rows)
+                    self.sumDT = self.sumDT - self.refreshRate
+                end
+            end
         end
     return game
 end

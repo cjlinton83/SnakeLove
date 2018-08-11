@@ -9,13 +9,17 @@ testGameNew = {}
     function testGameNew:testSingle()
         g = game.new(width, height, cellSize, scaleFactor)
 
-        lu.assertEquals(g.score, 0)
         lu.assertEquals(g.cellSize, cellSize)
         lu.assertEquals(g.scaleFactor, scaleFactor)
         lu.assertEquals(g.columns, width/cellSize - 1)
         lu.assertEquals(g.rows, height/cellSize - 1)
         lu.assertEquals(g.gameOver, true)
+        lu.assertEquals(g.quit, false)
+        lu.assertEquals(g.refreshRate, 0.080)
 
+        -- game:initPlayState()
+        lu.assertEquals(g.score, 0)
+        lu.assertEquals(g.sumDT, 0)
         lu.assertEquals(g.player.color, { r=1, g=1, b=1 })
         lu.assertEquals(g.player.bodySegmentCount, 3)
         lu.assertEquals(g.player.body.head.x, 19)
@@ -31,6 +35,9 @@ testGameMethods = {}
         g.gameOver = true
         g:keypressed("space")
         lu.assertEquals(g.gameOver, false)
+        lu.assertEquals(g.score, 0)
+        lu.assertEquals(g.player.body.head,
+            { x=19, y=14, next={ x=18, y=14, next={ x=17, y=14 }}})
 
         lu.assertEquals(g.quit, false)
         g:keypressed("escape")

@@ -15,6 +15,7 @@ function love.keypressed(k)
 end
 
 function love.update(dt)
+    Game:update(dt)
 end
 
 function love.draw()
@@ -41,6 +42,9 @@ Draw = {}
         love.graphics.print(string.format("Game.rows: %d", Game.rows), 20, 120)
         love.graphics.print(string.format("Game.gameOver: %s", Game.gameOver), 20, 140)
         love.graphics.print(string.format("Game.quit: %s", Game.quit), 20, 160)
+        love.graphics.print(string.format("Game.refreshRate: %g", Game.refreshRate), 20, 180)
+        love.graphics.print(string.format("Game.sumDT: %g", Game.sumDT), 20, 200)
+
 
         love.graphics.print(string.format("Game.player.color: { r=%d, g=%d, b=%d }",
             Game.player.color.r, Game.player.color.g, Game.player.color.b), 240, 20)
