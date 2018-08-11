@@ -10,7 +10,7 @@ end
 
 function love.keypressed(k)
     Game:keypressed(k)
-
+    
     if Game.quit == true then love.event.quit() end
 end
 
@@ -23,7 +23,10 @@ function love.draw()
     else
         Draw.player()
     end
+
+    ---[[
     Draw.debug()
+    --]]
 end
 
 Draw = {}

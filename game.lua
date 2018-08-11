@@ -26,8 +26,8 @@ local new = function(width, height, cellSize, scaleFactor)
                 end
             else
                 if key == "up" or key == "down" or
-                    key == "left" or key == "right" then
-                        self.player.direction = key
+                   key == "left" or key == "right" then
+                       self.player.direction = key
                 end
             end
 
