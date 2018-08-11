@@ -62,8 +62,8 @@ Draw = {}
                 Game.player.color.b)
 
         local drawSegment = function(current)
-            love.graphics.rectangle("fill", current.x, current.y, Game.scaleFactor,
-                Game.scaleFactor)
+            love.graphics.rectangle("fill", current.x, current.y,
+                Game.scaleFactor, Game.scaleFactor)
         end
 
         local current = Game.player.body.head
@@ -76,6 +76,8 @@ Draw = {}
     end
 
     function Draw.gameOver()
+        Draw.player()
+
         local defaultFont = love.graphics.getFont()
         love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
         love.graphics.origin()
@@ -84,9 +86,8 @@ Draw = {}
         love.graphics.print("GAME OVER", 20, 20)
         love.graphics.print(string.format("SCORE: %04d", Game.score), 
             580, 20)
-        love.graphics.print("<SPACE> TO START", 250, 540)
-
-        Draw.player()
+        love.graphics.print("<SPACE> TO START", 250, 500)
+        love.graphics.print("<ESC> TO QUIT", 280, 540)
 
         love.graphics.setFont(defaultFont)
     end
