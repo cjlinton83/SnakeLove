@@ -12,7 +12,7 @@ testGameNew = {}
         lu.assertEquals(g.rows, height/g.cellSize - 1)
         lu.assertEquals(g.gameOver, true)
         lu.assertEquals(g.quit, false)
-        lu.assertEquals(g.refreshRate, 0.080)
+        lu.assertEquals(g.refreshRate, 0.050)
 
         -- game:initPlayState()
         lu.assertEquals(g.score, 0)

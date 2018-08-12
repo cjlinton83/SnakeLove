@@ -46,6 +46,7 @@ local new = function(width, height)
 
                 if self.sumDT >= self.refreshRate then
                     self.gameOver = self.player:update(self.columns, self.rows)
+                    -- self.score = self.score + self.food:update(self.player)
                     self.sumDT = self.sumDT - self.refreshRate
                 end
             end
