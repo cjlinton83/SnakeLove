@@ -2,17 +2,14 @@ lu = require("luaunit")
 game = require("game")
 
 width, height = 800, 600
-cellSize = 20
-scaleFactor = 0.8
 
 testGameNew = {}
     function testGameNew:testSingle()
-        g = game.new(width, height, cellSize, scaleFactor)
+        g = game.new(width, height)
 
-        lu.assertEquals(g.cellSize, cellSize)
-        lu.assertEquals(g.scaleFactor, scaleFactor)
-        lu.assertEquals(g.columns, width/cellSize - 1)
-        lu.assertEquals(g.rows, height/cellSize - 1)
+        lu.assertEquals(g.cellSize, 20)
+        lu.assertEquals(g.columns, width/g.cellSize - 1)
+        lu.assertEquals(g.rows, height/g.cellSize - 1)
         lu.assertEquals(g.gameOver, true)
         lu.assertEquals(g.quit, false)
         lu.assertEquals(g.refreshRate, 0.080)
@@ -30,7 +27,7 @@ testGameNew = {}
 
 testGameMethods = {}
     function testGameMethods:testKeypressed_GameOver()
-        g = game.new(width, height, cellSize, scaleFactor)
+        g = game.new(width, height)
 
         g.gameOver = true
         g:keypressed("space")
@@ -54,7 +51,7 @@ testGameMethods = {}
     end
 
     function testGameMethods:testKeyPressed_GameNotOver()
-        g = game.new(width, height, cellSize, scaleFactor)
+        g = game.new(width, height)
 
         g.gameOver = false
 

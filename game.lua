@@ -11,7 +11,6 @@ local new = function(width, height)
 
     local game = {}
         game.cellSize = 20
-        game.scaleFactor = 0.8
         game.columns = width/game.cellSize - 1
         game.rows = height/game.cellSize - 1
         game.gameOver = true

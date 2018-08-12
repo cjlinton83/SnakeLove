@@ -35,7 +35,6 @@ Draw = {}
 
         love.graphics.print(string.format("Game.score: %d", Game.score), 20, 40)
         love.graphics.print(string.format("Game.cellSize: %d", Game.cellSize), 20, 60)
-        love.graphics.print(string.format("Game.scaleFactor: %g", Game.scaleFactor), 20, 80)
         love.graphics.print(string.format("Game.columns: %d", Game.columns), 20, 100)
         love.graphics.print(string.format("Game.rows: %d", Game.rows), 20, 120)
         love.graphics.print(string.format("Game.gameOver: %s", Game.gameOver), 20, 140)
@@ -60,8 +59,7 @@ Draw = {}
                 Game.player.color.b)
 
         local drawSegment = function(current)
-            love.graphics.rectangle("fill", current.x, current.y,
-                Game.scaleFactor, Game.scaleFactor)
+            love.graphics.rectangle("fill", current.x, current.y, 1, 1)
         end
 
         local current = Game.player.body.head
