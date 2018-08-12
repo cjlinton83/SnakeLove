@@ -33,14 +33,15 @@ Draw = {}
         love.graphics.origin()
         love.graphics.setColor(0, 1, 0)
 
+        love.graphics.print(string.format("FPS: %g", love.timer.getFPS()), 20, 20)
         love.graphics.print(string.format("Game.score: %d", Game.score), 20, 40)
         love.graphics.print(string.format("Game.cellSize: %d", Game.cellSize), 20, 60)
-        love.graphics.print(string.format("Game.columns: %d", Game.columns), 20, 100)
-        love.graphics.print(string.format("Game.rows: %d", Game.rows), 20, 120)
-        love.graphics.print(string.format("Game.gameOver: %s", Game.gameOver), 20, 140)
-        love.graphics.print(string.format("Game.quit: %s", Game.quit), 20, 160)
-        love.graphics.print(string.format("Game.refreshRate: %g", Game.refreshRate), 20, 180)
-        love.graphics.print(string.format("Game.sumDT: %g", Game.sumDT), 20, 200)
+        love.graphics.print(string.format("Game.columns: %d", Game.columns), 20, 80)
+        love.graphics.print(string.format("Game.rows: %d", Game.rows), 20, 100)
+        love.graphics.print(string.format("Game.gameOver: %s", Game.gameOver), 20, 120)
+        love.graphics.print(string.format("Game.quit: %s", Game.quit), 20, 140)
+        love.graphics.print(string.format("Game.refreshRate: %g", Game.refreshRate), 20, 160)
+        love.graphics.print(string.format("Game.sumDT: %g", Game.sumDT), 20, 180)
 
 
         love.graphics.print(string.format("Game.player.color: { r=%d, g=%d, b=%d }",

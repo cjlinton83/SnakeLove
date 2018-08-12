@@ -15,8 +15,8 @@ local new = function(width, height)
         game.rows = height/game.cellSize - 1
         game.gameOver = true
         game.quit = false
-        game.refreshRate = 0.080
-        
+        game.refreshRate = 0.05 -- refresh every 3 frames, 20 times a second
+
         function game:initPlayState()
             self.score = 0
             self.sumDT = 0
