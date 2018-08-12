@@ -1,4 +1,4 @@
-local new = function(width, height, cellSize, scaleFactor)
+local new = function(width, height)
     local initPlayer = function(columns, rows)
         local player = require("player")
         local x = math.floor(columns/2)
@@ -10,10 +10,10 @@ local new = function(width, height, cellSize, scaleFactor)
     end
 
     local game = {}
-        game.cellSize = cellSize
-        game.scaleFactor = scaleFactor
-        game.columns = width/cellSize - 1
-        game.rows = height/cellSize - 1
+        game.cellSize = 20
+        game.scaleFactor = 0.8
+        game.columns = width/game.cellSize - 1
+        game.rows = height/game.cellSize - 1
         game.gameOver = true
         game.quit = false
         game.refreshRate = 0.080

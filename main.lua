@@ -2,10 +2,8 @@ function love.load()
     local game = require("game")
     local w = love.graphics.getWidth()
     local h = love.graphics.getHeight()
-    local cellSize = 20
-    local scaleFactor = 0.8
 
-    Game = game.new(w, h, cellSize, scaleFactor)
+    Game = game.new(w, h)
 end
 
 function love.keypressed(k)
@@ -76,8 +74,6 @@ Draw = {}
     end
 
     function Draw.gameOver()
-        Draw.player()
-
         local defaultFont = love.graphics.getFont()
         love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
         love.graphics.origin()
