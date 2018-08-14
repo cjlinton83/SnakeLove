@@ -10,6 +10,7 @@ testGameNew = {}
         lu.assertEquals(g.cellSize, 20)
         lu.assertEquals(g.columns, width/g.cellSize - 1)
         lu.assertEquals(g.rows, height/g.cellSize - 1)
+        lu.assertEquals(g.cellCount, 1131)
         lu.assertEquals(g.gameOver, true)
         lu.assertEquals(g.quit, false)
         lu.assertEquals(g.refreshRate, 0.050)

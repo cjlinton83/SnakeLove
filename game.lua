@@ -13,6 +13,7 @@ local new = function(width, height)
         game.cellSize = 20
         game.columns = width/game.cellSize - 1
         game.rows = height/game.cellSize - 1
+        game.cellCount = game.columns * game.rows
         game.gameOver = true
         game.quit = false
         game.refreshRate = 0.05 -- refresh every 3 frames, 20 times a second
@@ -46,7 +47,7 @@ local new = function(width, height)
 
                 if self.sumDT >= self.refreshRate then
                     self.gameOver = self.player:update(self.columns, self.rows)
-                    -- self.score = self.score + self.food:update(self.player)
+                    --self.gameOver, self.score = self.food:update()
                     self.sumDT = self.sumDT - self.refreshRate
                 end
             end
