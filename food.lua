@@ -3,14 +3,13 @@ local new = function(color)
         food.color = color
 
         function food:update(game)
-            if game:hasEmptySpace() then
+            if game:hasEmptyLocation() then
                 if self.location == nil then
                     self.location = game:getEmptyLocation()
                 else
                     if game.player:containsLocation(self.location) then
                         game:incrementScore()
-                        game.player.body:pushHead(self.location)
-                        game.player.bodySegmentCount = game.player.bodySegmentCount + 1
+                        game.player:pushNewHead(self.location)
                         self.location = nil
                     end
                 end

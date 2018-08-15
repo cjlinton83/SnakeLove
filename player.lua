@@ -91,6 +91,11 @@ local new = function(color, count, x, y, direction)
             
             return false
         end
+
+        function player:pushNewHead(location)
+            self.body:pushHead(location)
+            self.bodySegmentCount = self.bodySegmentCount + 1
+        end
     return player
 end
 

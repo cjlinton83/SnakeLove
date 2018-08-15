@@ -1,14 +1,4 @@
 local new = function(width, height)
-    local initPlayer = function(columns, rows)
-        local player = require("player")
-        local x = math.floor(columns/2)
-        local y = math.floor(rows/2)
-        local color = { r = 1, g = 1, b = 1 }
-        local bodySegmentCount = 3
-        local direction = "right"
-        return player.new(color, bodySegmentCount, x, y, direction)
-    end
-
     local game = {}
         game.cellSize = 20
         game.columns = width/game.cellSize - 1
@@ -19,10 +9,26 @@ local new = function(width, height)
         game.refreshRate = 0.05 -- refresh every 3 frames, 20 times a second
 
         function game:initPlayState()
+            local initPlayer = function(columns, rows)
+                local player = require("player")
+                local x = math.floor(columns/2)
+                local y = math.floor(rows/2)
+                local color = { r = 1, g = 1, b = 1 }
+                local bodySegmentCount = 3
+                local direction = "right"
+                return player.new(color, bodySegmentCount, x, y, direction)
+            end
+
+            local initFood = function()
+                local food = require("food")
+                local color = { r=1, g=0, b=0 }
+                return food.new(color)
+            end
+
             self.score = 0
             self.sumDT = 0
             self.player = initPlayer(self.columns, self.rows)
-            self.food = require("food").new({ r=1, g=0, b=0 })
+            self.food = initFood()
         end
         game:initPlayState()
 
@@ -54,7 +60,7 @@ local new = function(width, height)
             end
         end
 
-        function game:hasEmptySpace()
+        function game:hasEmptyLocation()
             if self.player.bodySegmentCount >= self.cellCount then
                 return false
             end

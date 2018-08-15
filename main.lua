@@ -65,7 +65,7 @@ Draw = {}
     function Draw.play()
         love.graphics.scale(Game.cellSize, Game.cellSize)
         love.graphics.setColor(Game.player.color.r, Game.player.color.g,
-                Game.player.color.b)
+            Game.player.color.b)
 
         local drawSegment = function(current)
             love.graphics.rectangle("fill", current.x, current.y, 1, 1)
@@ -79,7 +79,8 @@ Draw = {}
         end
 
         if Game.food.location then
-            love.graphics.setColor(1, 0, 0)
+            love.graphics.setColor(Game.food.color.r, Game.food.color.g,
+                Game.food.color.b)
             love.graphics.rectangle("fill", Game.food.location.x,
                 Game.food.location.y, 1, 1)
         end
