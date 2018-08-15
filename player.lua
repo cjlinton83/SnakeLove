@@ -74,6 +74,23 @@ local new = function(color, count, x, y, direction)
 
             return gameOver
         end
+
+        function player:containsLocation(location)
+            local current = self.body.head
+
+            if current.x == location.x and current.y == location.y then
+                return true
+            end
+
+            while current.next ~= nil do
+                if current.next.x == location.x and current.next.y == location.y then
+                    return true
+                end
+                current = current.next
+            end
+            
+            return false
+        end
     return player
 end
 

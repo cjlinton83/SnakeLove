@@ -1,29 +1,22 @@
-local  hasEmptySpace = function(cellCount, bodySegmentCount)
-    if bodySegmentCount >= cellCount then
-        return false
-    end
-    return true
-end
-
 local new = function(color)
     local food = {}
         food.color = color
 
-        function food:update(cellCount, bodySegmentCount)
-            local gameOver = false
-
-            if hasEmptySpace(cellCount, bodySegmentCount) then
-            -- find a location that isn't occupied
-                -- when self.location == nil
-                -- getLocation()
-                -- player:hasLocation(location)
-            -- check for collision
-                -- when self.location ~= nil
+        function food:update(game)
+            if game:hasEmptySpace() then
+                if self.location == nil then
+                    self.location = game:getEmptyLocation()
+                else
+                    if game.player:containsLocation(self.location) then
+                        game:incrementScore()
+                        game.player.body:pushHead(self.location)
+                        game.player.bodySegmentCount = game.player.bodySegmentCount + 1
+                        self.location = nil
+                    end
+                end
             else
-                gameOver = true
+                game.gameOver = true
             end
-
-            return gameOver
         end
     return food
 end

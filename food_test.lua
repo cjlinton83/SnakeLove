@@ -11,18 +11,16 @@ testFoodNew = {}
 -- endTestFoodNew
 
 testFoodMethods = {}
+    game = require("game").new(800, 600)
+
     function testFoodMethods.testUpdate()
         f = food.new({})
 
         -- test hasEmptySpace()
-        gameOver = f:update(4, 2)
+        gameOver = f:update(game)
         lu.assertEquals(gameOver, false)
 
-        gameOver = f:update(2, 4)
-        lu.assertEquals(gameOver, true)
-
-        gameOver = f:update(100, 100)
-        lu.assertEquals(gameOver, true)
+        print(lu.prettystr(f.location))
     end
 -- endTestFoodMethods
 os.exit(lu.LuaUnit.run())

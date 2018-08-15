@@ -22,6 +22,7 @@ local new = function(width, height)
             self.score = 0
             self.sumDT = 0
             self.player = initPlayer(self.columns, self.rows)
+            self.food = require("food").new({ r=1, g=0, b=0 })
         end
         game:initPlayState()
 
@@ -47,10 +48,36 @@ local new = function(width, height)
 
                 if self.sumDT >= self.refreshRate then
                     self.gameOver = self.player:update(self.columns, self.rows)
-                    --self.gameOver, self.score = self.food:update()
+                    self.food:update(self)
                     self.sumDT = self.sumDT - self.refreshRate
                 end
             end
+        end
+
+        function game:hasEmptySpace()
+            if self.player.bodySegmentCount >= self.cellCount then
+                return false
+            end
+            return true
+        end
+
+        function game:getEmptyLocation()
+            local getLocation = function()
+                local x = math.random(0, self.columns)
+                local y = math.random(0, self.rows)
+                return { x=x, y=y }
+            end
+
+            local location = getLocation()
+            while self.player:containsLocation(location) do
+                location = getLocation()
+            end
+
+            return location
+        end
+
+        function game:incrementScore()
+            self.score = self.score + 1
         end
     return game
 end

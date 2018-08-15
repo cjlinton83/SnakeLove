@@ -20,7 +20,7 @@ function love.draw()
     if Game.gameOver then
         Draw.gameOver()
     else
-        Draw.player()
+        Draw.play()
     end
 
     ---[[
@@ -52,9 +52,17 @@ Draw = {}
             Game.player.body.head.x, Game.player.body.head.y), 240, 60)
         love.graphics.print(string.format("Game.player.direction: %s", 
             Game.player.direction), 240, 80)
+
+        love.graphics.print(string.format("Game.food.color: { r=%d, g=%d, b=%d }",
+            Game.food.color.r, Game.food.color.g, Game.food.color.b), 240, 100)
+        if Game.food.location then
+            love.graphics.print(string.format("Game.food.location: { x=%d, y=%d }",
+                Game.food.location.x, Game.food.location.y), 240, 120)
+        end
+
     end
 
-    function Draw.player()
+    function Draw.play()
         love.graphics.scale(Game.cellSize, Game.cellSize)
         love.graphics.setColor(Game.player.color.r, Game.player.color.g,
                 Game.player.color.b)
@@ -70,6 +78,11 @@ Draw = {}
             drawSegment(current)
         end
 
+        if Game.food.location then
+            love.graphics.setColor(1, 0, 0)
+            love.graphics.rectangle("fill", Game.food.location.x,
+                Game.food.location.y, 1, 1)
+        end
     end
 
     function Draw.gameOver()
