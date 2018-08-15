@@ -14,9 +14,15 @@ testFoodMethods = {}
     function testFoodMethods.testUpdate()
         f = food.new({})
 
-        gameOver = f:update()
+        -- test hasEmptySpace()
+        gameOver = f:update(4, 2)
+        lu.assertEquals(gameOver, false)
 
-        lu.assertEquals(gameOver, nil)
+        gameOver = f:update(2, 4)
+        lu.assertEquals(gameOver, true)
+
+        gameOver = f:update(100, 100)
+        lu.assertEquals(gameOver, true)
     end
 -- endTestFoodMethods
 os.exit(lu.LuaUnit.run())
