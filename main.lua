@@ -7,13 +7,13 @@ function love.load()
 end
 
 function love.keypressed(k)
-    Game:keypressed(k)
+    Game:processInput(k)
     
     if Game.quit == true then love.event.quit() end
 end
 
 function love.update(dt)
-    Game:update(dt)
+    Game:processUpdate(dt)
 end
 
 function love.draw()
@@ -23,7 +23,7 @@ function love.draw()
         Draw.play()
     end
 
-    ---[[
+    --[[
     Draw.debug()
     --]]
 end

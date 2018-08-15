@@ -6,7 +6,7 @@ local new = function(width, height)
         game.cellCount = game.columns * game.rows
         game.gameOver = true
         game.quit = false
-        game.refreshRate = 0.05 -- refresh every 3 frames, 20 times a second
+        game.refreshRate = 0.07
 
         function game:initPlayState()
             local initPlayer = function(columns, rows)
@@ -32,31 +32,43 @@ local new = function(width, height)
         end
         game:initPlayState()
 
-        function game:keypressed(key)
-            if self.gameOver then
+        function game:processInput(key)
+            local processInputGameOver = function(key)
                 if key == "space" then
                     self:initPlayState()
                     self.gameOver = false
                 end
-            else
+            end
+
+            local processInputPlayState = function(key)
                 if key == "up" or key == "down" or
                    key == "left" or key == "right" then
                        self.player.direction = key
                 end
             end
+ 
+            if self.gameOver then
+                processInputGameOver(key)
+            else
+                processInputPlayState(key)
+            end
 
             if key == "escape" then self.quit = true end
         end
 
-        function game:update(dt)
-            if not self.gameOver then
+        function game:processUpdate(dt)
+            local processUpdatePlayState = function(dt)
                 self.sumDT = self.sumDT + dt
-
+    
                 if self.sumDT >= self.refreshRate then
                     self.gameOver = self.player:update(self.columns, self.rows)
                     self.food:update(self)
                     self.sumDT = self.sumDT - self.refreshRate
                 end
+            end
+
+            if not self.gameOver then
+                processUpdatePlayState(dt)
             end
         end
 
