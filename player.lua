@@ -16,6 +16,7 @@ local new = function(color, count, x, y, direction)
         player.bodySegmentCount = count
         player.direction = direction
         player.body = initBody()
+        player.updated = false
 
         function player:update(columns, rows)
             local calculateDeltaValues = function()
@@ -70,6 +71,7 @@ local new = function(color, count, x, y, direction)
                 local tail = self.body:popTail()
                 self.body:updateNode(tail, deltaValues.dx, deltaValues.dy)
                 self.body:pushHead(tail)
+                self.updated = true
             end
 
             return gameOver

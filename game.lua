@@ -43,14 +43,18 @@ local new = function(width, height)
             local processInputPlayState = function(key)
                 local direction = self.player.direction
 
-                if key == "up" or key == "down" then
-                    if direction == "right" or direction == "left" then
-                        self.player.direction = key
+                if self.player.updated then
+                    self.player.updated = false
+                    
+                    if key == "up" or key == "down" then
+                        if direction == "right" or direction == "left" then
+                            self.player.direction = key
+                        end
                     end
-                end
-                if key == "left" or key == "right" then
-                    if direction == "up" or direction == "down" then
-                        self.player.direction = key
+                    if key == "left" or key == "right" then
+                        if direction == "up" or direction == "down" then
+                            self.player.direction = key
+                        end
                     end
                 end
             end

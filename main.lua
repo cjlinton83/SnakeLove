@@ -23,7 +23,7 @@ function love.draw()
         Draw.play()
     end
 
-    --[[
+    ---[[
     Draw.debug()
     --]]
 end
@@ -52,12 +52,14 @@ Draw = {}
             Game.player.body.head.x, Game.player.body.head.y), 240, 60)
         love.graphics.print(string.format("Game.player.direction: %s", 
             Game.player.direction), 240, 80)
+        love.graphics.print(string.format("Game.player.updated: %s",
+            Game.player.updated), 240, 100)
 
         love.graphics.print(string.format("Game.food.color: { r=%d, g=%d, b=%d }",
-            Game.food.color.r, Game.food.color.g, Game.food.color.b), 240, 100)
+            Game.food.color.r, Game.food.color.g, Game.food.color.b), 240, 120)
         if Game.food.location then
             love.graphics.print(string.format("Game.food.location: { x=%d, y=%d }",
-                Game.food.location.x, Game.food.location.y), 240, 120)
+                Game.food.location.x, Game.food.location.y), 240, 140)
         end
 
     end
