@@ -17,18 +17,98 @@ function love.update(dt)
 end
 
 function love.draw()
+    Draw.background()
+
     if Game.gameOver then
         Draw.gameOver()
     else
         Draw.play()
     end
 
-    ---[[
+    --[[
     Draw.debug()
     --]]
 end
 
 Draw = {}
+    function Draw.background()
+        local drawScore = function()
+            love.graphics.setColor(1, 1, 1)
+
+            local defaultFont = love.graphics.getFont()
+            love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
+
+            love.graphics.print(string.format("SCORE: %04d", Game.score), 
+                580, 8)
+    
+            love.graphics.setFont(defaultFont)
+        end
+
+        local drawPlayArea = function()
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.rectangle("fill", 0, 2, Game.columns+1, Game.rows-1)
+            
+            love.graphics.setColor(0, 0, 0, 0.8)
+            love.graphics.rectangle("fill", 0, 2, Game.columns+1, Game.rows-1)
+        end
+
+        love.graphics.origin()
+        drawScore()
+
+        love.graphics.scale(Game.cellSize, Game.cellSize)
+        drawPlayArea()
+    end
+
+    function Draw.play()
+        local drawPlayer = function()
+            local drawSegment = function(current)
+                love.graphics.rectangle("fill", current.x, current.y, 1, 1)
+            end
+
+            local drawPlayerOne = function()
+                love.graphics.setColor(Game.player.color.r, Game.player.color.g,
+                Game.player.color.b)
+    
+                local current = Game.player.body.head
+                drawSegment(current)
+                while current.next ~= nil do
+                    current = current.next
+                    drawSegment(current)
+                end
+            end
+
+            drawPlayerOne()
+        end
+
+        local drawFood = function()
+            if Game.food.location then
+                love.graphics.setColor(Game.food.color.r, Game.food.color.g,
+                    Game.food.color.b)
+                love.graphics.rectangle("fill", Game.food.location.x,
+                    Game.food.location.y, 1, 1)
+            end
+        end
+
+        love.graphics.origin()
+        love.graphics.scale(Game.cellSize, Game.cellSize)
+        drawPlayer()
+        drawFood()
+    end
+
+    function Draw.gameOver()
+        love.graphics.origin()
+        love.graphics.setColor(1, 1, 1)
+
+        local defaultFont = love.graphics.getFont()
+        love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
+
+        love.graphics.print("GAME OVER", 20, 8)
+        love.graphics.print("<SPACE> TO START", 250, 500)
+        love.graphics.print("<ESC> TO QUIT", 280, 540)
+
+        love.graphics.setFont(defaultFont)
+    end
+
     function Draw.debug()
         love.graphics.origin()
         love.graphics.setColor(0, 1, 0)
@@ -61,59 +141,5 @@ Draw = {}
             love.graphics.print(string.format("Game.food.location: { x=%d, y=%d }",
                 Game.food.location.x, Game.food.location.y), 240, 140)
         end
-    end
-
-    function Draw.play()
-        local drawBackGround = function()
-            love.graphics.scale(Game.cellSize, Game.cellSize)
-        end
-
-        local drawPlayer = function()
-            local drawSegment = function(current)
-                love.graphics.rectangle("fill", current.x, current.y, 1, 1)
-            end
-
-            local drawPlayerOne = function()
-                love.graphics.setColor(Game.player.color.r, Game.player.color.g,
-                Game.player.color.b)
-    
-                local current = Game.player.body.head
-                drawSegment(current)
-                while current.next ~= nil do
-                    current = current.next
-                    drawSegment(current)
-                end
-            end
-
-            drawPlayerOne()
-        end
-
-        local drawFood = function()
-            if Game.food.location then
-                love.graphics.setColor(Game.food.color.r, Game.food.color.g,
-                    Game.food.color.b)
-                love.graphics.rectangle("fill", Game.food.location.x,
-                    Game.food.location.y, 1, 1)
-            end
-        end
-
-        drawBackGround()
-        drawPlayer()
-        drawFood()
-    end
-
-    function Draw.gameOver()
-        local defaultFont = love.graphics.getFont()
-        love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
-        love.graphics.origin()
-        love.graphics.setColor(1, 1, 1)
-
-        love.graphics.print("GAME OVER", 20, 20)
-        love.graphics.print(string.format("SCORE: %04d", Game.score), 
-            580, 20)
-        love.graphics.print("<SPACE> TO START", 250, 500)
-        love.graphics.print("<ESC> TO QUIT", 280, 540)
-
-        love.graphics.setFont(defaultFont)
     end
 -- end draw table
