@@ -10,10 +10,10 @@ testGameNew = {}
         lu.assertEquals(g.cellSize, 20)
         lu.assertEquals(g.columns, width/g.cellSize - 1)
         lu.assertEquals(g.rows, height/g.cellSize - 1)
-        lu.assertEquals(g.cellCount, 1131)
+        lu.assertEquals(g.cellCount, 1053)
         lu.assertEquals(g.gameOver, true)
         lu.assertEquals(g.quit, false)
-        lu.assertEquals(g.refreshRate, 0.050)
+        lu.assertEquals(g.refreshRate, 0.07)
 
         -- game:initPlayState()
         lu.assertEquals(g.score, 0)
@@ -31,23 +31,23 @@ testGameMethods = {}
         g = game.new(width, height)
 
         g.gameOver = true
-        g:keypressed("space")
+        g:processInput("space")
         lu.assertEquals(g.gameOver, false)
         lu.assertEquals(g.score, 0)
         lu.assertEquals(g.player.body.head,
             { x=19, y=14, next={ x=18, y=14, next={ x=17, y=14 }}})
 
         lu.assertEquals(g.quit, false)
-        g:keypressed("escape")
+        g:processInput("escape")
         lu.assertEquals(g.quit, true)
 
         g.gameOver = false
-        g:keypressed("space")
+        g:processInput("space")
         lu.assertEquals(g.gameOver, false)
 
         g.quit = false
         lu.assertEquals(g.quit, false)
-        g:keypressed("escape")
+        g:processInput("escape")
         lu.assertEquals(g.quit, true)
     end
 
@@ -56,20 +56,26 @@ testGameMethods = {}
 
         g.gameOver = false
 
-        g:keypressed("up")
+        g.player.updated = true
+        g:processInput("up")
         lu.assertEquals(g.player.direction, "up")
 
-        g:keypressed("down")
+        g.player.updated = true
+        g.player.direction = "right"
+        g:processInput("down")
         lu.assertEquals(g.player.direction, "down")
 
-        g:keypressed("left")
+        g.player.updated = true
+        g:processInput("left")
         lu.assertEquals(g.player.direction, "left")
 
-        g:keypressed("right")
+        g.player.updated = true
+        g.player.direction = "up"
+        g:processInput("right")
         lu.assertEquals(g.player.direction, "right")
 
         lu.assertEquals(g.quit, false)
-        g:keypressed("escape")
+        g:processInput("escape")
         lu.assertEquals(g.quit, true)
     end
 -- end testGameMethods

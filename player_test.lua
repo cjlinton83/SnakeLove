@@ -84,7 +84,7 @@ testPlayerMethods = {}
         lu.assertEquals(p.body.head, { x=5, y=4 })
         
         -- out-of-bounds
-        p = player.new({}, 1, 5, 0, "up")
+        p = player.new({}, 1, 5, 2, "up")
         p:update(columns, rows)
         lu.assertEquals(p.body.head, { x=5, y=rows })
 
@@ -95,9 +95,9 @@ testPlayerMethods = {}
         lu.assertEquals(p.body.head, { x=5, y=4, next={ x=5, y=5 }})
         
         -- out-of-bounds
-        p = player.new({}, 2, 5, 0, "up")
+        p = player.new({}, 2, 5, 2, "up")
         p:update(columns, rows)
-        lu.assertEquals(p.body.head, { x=5, y=rows, next={ x=5, y=0 }})
+        lu.assertEquals(p.body.head, { x=5, y=rows, next={ x=5, y=2 }})
     end
 
     function testPlayerMethods.testUpdate_Down()
@@ -110,7 +110,7 @@ testPlayerMethods = {}
         -- out-of-bounds
         p = player.new({}, 1, 5, rows, "down")
         p:update(columns, rows)
-        lu.assertEquals(p.body.head, { x=5, y=0 })
+        lu.assertEquals(p.body.head, { x=5, y=2 })
         
         -- multi node
         -- in-bounds
@@ -121,7 +121,7 @@ testPlayerMethods = {}
         -- out-of-bounds
         p = player.new({}, 2, 5, rows, "down")
         p:update(columns, rows)
-        lu.assertEquals(p.body.head, { x=5, y=0, next={ x=5, y=rows }})
+        lu.assertEquals(p.body.head, { x=5, y=2, next={ x=5, y=rows }})
     end
 
     -- check 2 segment collision

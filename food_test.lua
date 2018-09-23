@@ -17,10 +17,13 @@ testFoodMethods = {}
         f = food.new({})
 
         -- test hasEmptySpace()
-        gameOver = f:update(game)
-        lu.assertEquals(gameOver, false)
+        game.gameOver = false
+        
+        f:update(game)
+        lu.assertEquals(game.gameOver, false)
 
         print(lu.prettystr(f.location))
     end
 -- endTestFoodMethods
+
 os.exit(lu.LuaUnit.run())
