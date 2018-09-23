@@ -94,7 +94,7 @@ local new = function(width, height)
         function game:getEmptyLocation()
             local getLocation = function()
                 local x = math.random(0, self.columns)
-                local y = math.random(0, self.rows)
+                local y = math.random(2, self.rows)
                 return { x=x, y=y }
             end
 

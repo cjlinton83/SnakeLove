@@ -33,11 +33,11 @@ local new = function(color, count, x, y, direction)
                 end
                 if self.direction == "up" then
                     dy = dy - 1
-                    if dy == -1 then dy = rows end
+                    if dy == 1 then dy = rows end
                 end
                 if self.direction == "down" then
                     dy = dy + 1
-                    if dy == rows+1 then dy = 0 end
+                    if dy == rows+1 then dy = 2 end
                 end
 
                 return { dx=dx, dy=dy }
