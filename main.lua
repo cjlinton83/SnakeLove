@@ -61,31 +61,45 @@ Draw = {}
             love.graphics.print(string.format("Game.food.location: { x=%d, y=%d }",
                 Game.food.location.x, Game.food.location.y), 240, 140)
         end
-
     end
 
     function Draw.play()
-        love.graphics.scale(Game.cellSize, Game.cellSize)
-        love.graphics.setColor(Game.player.color.r, Game.player.color.g,
-            Game.player.color.b)
-
-        local drawSegment = function(current)
-            love.graphics.rectangle("fill", current.x, current.y, 1, 1)
+        local drawBackGround = function()
+            love.graphics.scale(Game.cellSize, Game.cellSize)
         end
 
-        local current = Game.player.body.head
-        drawSegment(current)
-        while current.next ~= nil do
-            current = current.next
-            drawSegment(current)
+        local drawPlayer = function()
+            local drawSegment = function(current)
+                love.graphics.rectangle("fill", current.x, current.y, 1, 1)
+            end
+
+            local drawPlayerOne = function()
+                love.graphics.setColor(Game.player.color.r, Game.player.color.g,
+                Game.player.color.b)
+    
+                local current = Game.player.body.head
+                drawSegment(current)
+                while current.next ~= nil do
+                    current = current.next
+                    drawSegment(current)
+                end
+            end
+
+            drawPlayerOne()
         end
 
-        if Game.food.location then
-            love.graphics.setColor(Game.food.color.r, Game.food.color.g,
-                Game.food.color.b)
-            love.graphics.rectangle("fill", Game.food.location.x,
-                Game.food.location.y, 1, 1)
+        local drawFood = function()
+            if Game.food.location then
+                love.graphics.setColor(Game.food.color.r, Game.food.color.g,
+                    Game.food.color.b)
+                love.graphics.rectangle("fill", Game.food.location.x,
+                    Game.food.location.y, 1, 1)
+            end
         end
+
+        drawBackGround()
+        drawPlayer()
+        drawFood()
     end
 
     function Draw.gameOver()
