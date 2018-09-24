@@ -3,6 +3,8 @@ function love.load()
     local w = love.graphics.getWidth()
     local h = love.graphics.getHeight()
 
+    love.mouse.setVisible(false)
+
     Game = game.new(w, h)
 end
 
