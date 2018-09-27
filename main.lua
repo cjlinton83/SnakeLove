@@ -118,7 +118,7 @@ Draw = {}
 
         drawPlayerSelect()
 
-        love.graphics.print("<SPACE> TO START", 250, 500)
+        love.graphics.print("<ENTER> TO START", 250, 500)
         love.graphics.print("<ESC> TO QUIT", 280, 540)
 
         love.graphics.setFont(defaultFont)

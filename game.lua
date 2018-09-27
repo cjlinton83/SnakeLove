@@ -34,7 +34,7 @@ local new = function(width, height)
 
         function game:processInput(key)
             local processInputGameOver = function(key)
-                if key == "space" then
+                if key == "return" then
                     self:initPlayState()
                     self.gameOver = false
                 end
