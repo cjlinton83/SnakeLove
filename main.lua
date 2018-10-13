@@ -103,15 +103,17 @@ Draw = {}
         local drawPlayerSelect = function()
             if Game.singlePlayer then
                 love.graphics.rectangle("fill", 307, 225, 180, 30)
+                love.graphics.setColor(0, 0, 0)
+                love.graphics.print("1  PLAYER", 320, 225)
+                love.graphics.setColor(1, 1, 1)
+                love.graphics.print("2  PLAYER", 318, 275)
             else
                 love.graphics.rectangle("fill", 307, 275, 180, 30)
+                love.graphics.setColor(1, 1, 1)
+                love.graphics.print("1  PLAYER", 320, 225)
+                love.graphics.setColor(0, 0, 0)
+                love.graphics.print("2  PLAYER", 318, 275)
             end
-
-            love.graphics.setColor(0, 0, 0, 0.8)
-            love.graphics.print("1  PLAYER", 320, 225)
-            love.graphics.print("2  PLAYER", 318, 275)
-
-            love.graphics.setColor(1, 1, 1)
         end
 
         love.graphics.origin()
@@ -121,7 +123,8 @@ Draw = {}
         love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
 
         drawPlayerSelect()
-
+    
+        love.graphics.setColor(1, 1, 1)
         love.graphics.print("<ENTER> TO START", 250, 500)
         love.graphics.print("<ESC> TO QUIT", 280, 540)
 
