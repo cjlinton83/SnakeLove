@@ -27,7 +27,7 @@ function love.draw()
         Draw.play()
     end
 
-    --[[
+    ---[[
     Draw.debug()
     --]]
 end
@@ -99,7 +99,11 @@ Draw = {}
 
     function Draw.gameOver()
         local drawPlayerSelect = function()
-            love.graphics.rectangle("fill", 307, 225, 180, 30)
+            if Game.singlePlayer then
+                love.graphics.rectangle("fill", 307, 225, 180, 30)
+            else
+                love.graphics.rectangle("fill", 307, 275, 180, 30)
+            end
 
             love.graphics.setColor(0, 0, 0, 0.8)
             love.graphics.print("1  PLAYER", 320, 225)
@@ -137,6 +141,7 @@ Draw = {}
         love.graphics.print(string.format("Game.quit: %s", Game.quit), 20, 140)
         love.graphics.print(string.format("Game.refreshRate: %g", Game.refreshRate), 20, 160)
         love.graphics.print(string.format("Game.sumDT: %g", Game.sumDT), 20, 180)
+        love.graphics.print(string.format("Game.singlePlayer: %s", Game.singlePlayer), 20, 200)
 
 
         love.graphics.print(string.format("Game.player.color: { r=%d, g=%d, b=%d }",

@@ -7,6 +7,7 @@ local new = function(width, height)
         game.gameOver = true
         game.quit = false
         game.refreshRate = 0.07
+        game.singlePlayer = true
 
         function game:initPlayState()
             local initPlayer = function(columns, rows)
@@ -37,6 +38,9 @@ local new = function(width, height)
                 if key == "return" then
                     self:initPlayState()
                     self.gameOver = false
+                end
+                if key == "up" or key == "down" then
+                    self.singlePlayer = not self.singlePlayer
                 end
             end
 
