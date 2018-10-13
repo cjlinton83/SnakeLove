@@ -27,9 +27,7 @@ function love.draw()
         Draw.play()
     end
 
-    --[[
-    Draw.debug()
-    --]]
+    -- Draw.debug()
 end
 
 Draw = {}
