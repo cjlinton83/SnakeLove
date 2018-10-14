@@ -69,12 +69,16 @@ Draw = {}
                 love.graphics.rectangle("fill", current.x, current.y, 1, 1)
             end
 
+            local drawHead = function(current)
+                love.graphics.draw(love.graphics.newImage("head.png"), current.x, current.y, 0, 0.05, 0.05)
+            end
+
             local drawPlayerOne = function()
                 love.graphics.setColor(Game.player.color.r, Game.player.color.g,
                 Game.player.color.b)
     
                 local current = Game.player.body.head
-                drawSegment(current)
+                drawHead(current)
                 while current.next ~= nil do
                     current = current.next
                     drawSegment(current)
