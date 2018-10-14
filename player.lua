@@ -17,6 +17,7 @@ local new = function(color, count, x, y, direction)
         player.direction = direction
         player.body = initBody()
         player.updated = false
+        player.score = 0
 
         function player:update(columns, rows)
             local calculateDeltaValues = function()
@@ -97,6 +98,10 @@ local new = function(color, count, x, y, direction)
         function player:pushNewHead(location)
             self.body:pushHead(location)
             self.bodySegmentCount = self.bodySegmentCount + 1
+        end
+
+        function player:incrementScore()
+            self.score = self.score + 1
         end
     return player
 end

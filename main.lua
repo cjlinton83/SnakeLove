@@ -38,10 +38,10 @@ Draw = {}
             local defaultFont = love.graphics.getFont()
             love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
 
-            love.graphics.print(string.format("PLAYER 1: %04d", Game.score), 
+            love.graphics.print(string.format("PLAYER 1: %04d", Game.player.score), 
                 20, 8)
             if not Game.singlePlayer then
-                love.graphics.print(string.format("PLAYER 2: %04d", Game.score), 
+                love.graphics.print(string.format("PLAYER 2: %04d", Game.player.score), 
                     540, 8)
             end
     

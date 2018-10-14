@@ -26,7 +26,6 @@ local new = function(width, height)
                 return food.new(color)
             end
 
-            self.score = 0
             self.sumDT = 0
             self.player = initPlayer(self.columns, self.rows)
             self.food = initFood()
@@ -108,10 +107,6 @@ local new = function(width, height)
             end
 
             return location
-        end
-
-        function game:incrementScore()
-            self.score = self.score + 1
         end
     return game
 end

@@ -8,7 +8,7 @@ local new = function(color)
                     self.location = game:getEmptyLocation()
                 else
                     if game.player:containsLocation(self.location) then
-                        game:incrementScore()
+                        game.player:incrementScore()
                         game.player:pushNewHead(self.location)
                         self.location = nil
                     end
