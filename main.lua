@@ -139,8 +139,7 @@ Draw = {}
         love.graphics.origin()
         love.graphics.setColor(0, 1, 0)
 
-        love.graphics.print(string.format("FPS: %g", love.timer.getFPS()), 20, 20)
-        love.graphics.print(string.format("Game.score: %d", Game.score), 20, 40)
+        love.graphics.print(string.format("FPS: %g", love.timer.getFPS()), 20, 40)
         love.graphics.print(string.format("Game.cellSize: %d", Game.cellSize), 20, 60)
         love.graphics.print(string.format("Game.columns: %d", Game.columns), 20, 80)
         love.graphics.print(string.format("Game.rows: %d", Game.rows), 20, 100)
@@ -150,9 +149,6 @@ Draw = {}
         love.graphics.print(string.format("Game.sumDT: %g", Game.sumDT), 20, 180)
         love.graphics.print(string.format("Game.singlePlayer: %s", Game.singlePlayer), 20, 200)
 
-
-        love.graphics.print(string.format("Game.player.color: { r=%d, g=%d, b=%d }",
-            Game.player.color.r, Game.player.color.g, Game.player.color.b), 240, 20)
         love.graphics.print(string.format("Game.player.bodySegmentCount: %d",
             Game.player.bodySegmentCount), 240, 40)
         love.graphics.print(string.format("Game.player.body.head: { x=%d, y=%d }",
@@ -161,12 +157,14 @@ Draw = {}
             Game.player.direction), 240, 80)
         love.graphics.print(string.format("Game.player.updated: %s",
             Game.player.updated), 240, 100)
+        love.graphics.print(string.format("Game.player.color: { r=%d, g=%d, b=%d }",
+            Game.player.color.r, Game.player.color.g, Game.player.color.b), 240, 120)
 
         love.graphics.print(string.format("Game.food.color: { r=%d, g=%d, b=%d }",
-            Game.food.color.r, Game.food.color.g, Game.food.color.b), 240, 120)
+            Game.food.color.r, Game.food.color.g, Game.food.color.b), 240, 140)
         if Game.food.location then
             love.graphics.print(string.format("Game.food.location: { x=%d, y=%d }",
-                Game.food.location.x, Game.food.location.y), 240, 140)
+                Game.food.location.x, Game.food.location.y), 240, 160)
         end
     end
 -- end draw table
