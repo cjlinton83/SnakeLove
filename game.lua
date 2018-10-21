@@ -4,10 +4,12 @@ local new = function(width, height)
         game.columns = width/game.cellSize - 1
         game.rows = height/game.cellSize - 1
         game.cellCount = game.columns * game.rows - (2 * game.columns)  -- minus header cells
+        game.refreshRate = 0.07
+
         game.gameOver = true
         game.quit = false
-        game.refreshRate = 0.07
         game.singlePlayer = true
+        game.start = false
 
         function game:initPlayState()
             local initPlayer = function(columns, rows)
@@ -37,6 +39,7 @@ local new = function(width, height)
                 if key == "return" then
                     self:initPlayState()
                     self.gameOver = false
+                    self.start = true
                 end
                 if key == "up" or key == "down" then
                     self.singlePlayer = not self.singlePlayer
@@ -65,7 +68,11 @@ local new = function(width, height)
             if self.gameOver then
                 processInputGameOver(key)
             else
-                processInputPlayState(key)
+                if self.start then
+                    if key then self.start = false end
+                else
+                    processInputPlayState(key)
+                end
             end
 
             if key == "escape" then self.quit = true end
@@ -82,7 +89,7 @@ local new = function(width, height)
                 end
             end
 
-            if not self.gameOver then
+            if not self.gameOver and not self.start then
                 processUpdatePlayState(dt)
             end
         end

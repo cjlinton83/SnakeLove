@@ -31,21 +31,23 @@ function love.draw()
 end
 
 Draw = {}
+    function Draw.text(text, x, y)
+        local defaultFont = love.graphics.getFont()
+        love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
+        love.graphics.print(text, x, y)
+        love.graphics.setFont(defaultFont)
+    end
+
     function Draw.background()
         local drawScore = function()
             love.graphics.setColor(1, 1, 1)
 
-            local defaultFont = love.graphics.getFont()
-            love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
-
-            love.graphics.print(string.format("PLAYER 1: %04d", Game.player.score), 
-                20, 8)
+            Draw.text(string.format("PLAYER 1: %04d", Game.player.score), 
+            20, 8)
             if not Game.singlePlayer then
-                love.graphics.print(string.format("PLAYER 2: %04d", Game.player.score), 
-                    540, 8)
+                Draw.text(string.format("PLAYER 2: %04d", Game.player.score), 
+                540, 8)
             end
-    
-            love.graphics.setFont(defaultFont)
         end
 
         local drawPlayArea = function()
@@ -98,9 +100,14 @@ Draw = {}
         end
 
         love.graphics.origin()
-        love.graphics.scale(Game.cellSize, Game.cellSize)
-        drawPlayer()
-        drawFood()
+        if Game.start then
+            love.graphics.setColor(1, 1, 1)
+            Draw.text("READY PLAYER 1", 275, 260)
+        else
+            love.graphics.scale(Game.cellSize, Game.cellSize)
+            drawPlayer()
+            drawFood()
+        end
     end
 
     function Draw.gameOver()
@@ -108,31 +115,26 @@ Draw = {}
             if Game.singlePlayer then
                 love.graphics.rectangle("fill", 307, 225, 180, 30)
                 love.graphics.setColor(0, 0, 0)
-                love.graphics.print("1  PLAYER", 320, 225)
+                Draw.text("1  PLAYER", 320, 225)
                 love.graphics.setColor(1, 1, 1)
-                love.graphics.print("2  PLAYER", 318, 275)
+                Draw.text("2  PLAYER", 318, 275)
             else
                 love.graphics.rectangle("fill", 307, 275, 180, 30)
                 love.graphics.setColor(1, 1, 1)
-                love.graphics.print("1  PLAYER", 320, 225)
+                Draw.text("1  PLAYER", 320, 225)
                 love.graphics.setColor(0, 0, 0)
-                love.graphics.print("2  PLAYER", 318, 275)
+                Draw.text("2  PLAYER", 318, 275)
             end
         end
 
         love.graphics.origin()
         love.graphics.setColor(1, 1, 1)
 
-        local defaultFont = love.graphics.getFont()
-        love.graphics.setFont(love.graphics.newFont("nes.otf", 20))
-
         drawPlayerSelect()
     
         love.graphics.setColor(1, 1, 1)
-        love.graphics.print("<ENTER> TO START", 250, 500)
-        love.graphics.print("<ESC> TO QUIT", 280, 540)
-
-        love.graphics.setFont(defaultFont)
+        Draw.text("<ENTER> TO START", 250, 500)
+        Draw.text("<ESC> TO QUIT", 280, 540)
     end
 
     function Draw.debug()
