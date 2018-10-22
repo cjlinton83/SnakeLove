@@ -10,6 +10,8 @@ local new = function(width, height)
         game.quit = false
         game.singlePlayer = true
         game.start = false
+        
+        game.currentPlayer = 1
 
         function game:initPlayState()
             local initPlayer = function(columns, rows)

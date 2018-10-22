@@ -102,7 +102,11 @@ Draw = {}
         love.graphics.origin()
         if Game.start then
             love.graphics.setColor(1, 1, 1)
-            Draw.text("READY PLAYER 1", 275, 260)
+            if Game.currentPlayer == 1 then
+                Draw.text("READY PLAYER 1", 275, 260)
+            else
+                Draw.text("READY PLAYER 2", 275, 260)
+            end
             Draw.text("PRESS ANY KEY TO CONTINUE", 175, 300)
         else
             love.graphics.scale(Game.cellSize, Game.cellSize)
