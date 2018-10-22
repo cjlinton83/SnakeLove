@@ -41,12 +41,19 @@ Draw = {}
     function Draw.background()
         local drawScore = function()
             love.graphics.setColor(1, 1, 1)
+            local p1score = 0
+            local p2score = 0
 
-            Draw.text(string.format("PLAYER 1: %04d", Game.player.score), 
-            20, 8)
-            if not Game.singlePlayer then
-                Draw.text(string.format("PLAYER 2: %04d", Game.player.score), 
-                540, 8)
+            if Game.playerTable then
+                p1score = Game.playerTable[1].score
+                if Game.playerCount == 2 then
+                    p2score = Game.playerTable[2].score
+                end
+            end
+
+            Draw.text(string.format("PLAYER 1: %04d", p1score), 20, 8)
+            if Game.playerCount == 2 then
+                Draw.text(string.format("PLAYER 2: %04d", p2score), 540, 8)
             end
         end
 
@@ -117,7 +124,7 @@ Draw = {}
 
     function Draw.gameOver()
         local drawPlayerSelect = function()
-            if Game.singlePlayer then
+            if Game.playerCount == 1 then
                 love.graphics.rectangle("fill", 307, 225, 180, 30)
                 love.graphics.setColor(0, 0, 0)
                 Draw.text("1  PLAYER", 320, 225)

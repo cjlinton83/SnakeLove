@@ -1,17 +1,20 @@
 local new = function(width, height)
     local game = {}
+        -- setup
         game.cellSize = 20
         game.columns = width/game.cellSize - 1
         game.rows = height/game.cellSize - 1
         game.cellCount = game.columns * game.rows - (2 * game.columns)  -- minus header cells
         game.refreshRate = 0.07
 
+        -- game state
         game.gameOver = true
         game.quit = false
-        game.singlePlayer = true
         game.start = false
         
+        -- player state
         game.currentPlayer = 1
+        game.playerCount = 1
 
         function game:initPlayState()
             local initPlayer = function(columns, rows)
@@ -30,11 +33,15 @@ local new = function(width, height)
                 return food.new(color)
             end
 
+            self.playerTable = {}
+            for i = 1, self.playerCount do
+                self.playerTable[i] = initPlayer(self.columns, self.rows)
+            end
+
             self.sumDT = 0
-            self.player = initPlayer(self.columns, self.rows)
+            self.player = self.playerTable[self.currentPlayer]
             self.food = initFood()
         end
-        game:initPlayState()
 
         function game:processInput(key)
             local processInputGameOver = function(key)
@@ -44,7 +51,11 @@ local new = function(width, height)
                     self.start = true
                 end
                 if key == "up" or key == "down" then
-                    self.singlePlayer = not self.singlePlayer
+                    if self.playerCount == 1 then
+                        self.playerCount = 2
+                    else
+                        self.playerCount = 1
+                    end
                 end
             end
 
