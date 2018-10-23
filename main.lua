@@ -44,7 +44,7 @@ Draw = {}
 
             if Game.playerTable then
                 p1score = Game.playerTable[1].score
-                if Game.playerCount == 2 then
+                if Game.playerTable[2] then
                     p2score = Game.playerTable[2].score
                 end
             end
