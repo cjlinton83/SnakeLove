@@ -3,6 +3,8 @@ local game_state = {}
         self.current = value
         
         if value == "select" then
+            love.audio.play(SFX.select)
+
             self.select = true
             self.ready = false
             self.play = false
@@ -12,6 +14,8 @@ local game_state = {}
         end
 
         if value == "ready" then
+            love.audio.stop(SFX.select)
+            
             self.ready = true
             self.select = false
             self.play = false
@@ -19,6 +23,8 @@ local game_state = {}
         end
 
         if value == "play" then
+            love.audio.play(SFX.play)
+
             self.play = true
             self.select = false
             self.ready = false

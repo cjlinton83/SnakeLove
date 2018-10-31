@@ -5,9 +5,16 @@ function love.load()
     local w = love.graphics.getWidth()
     local h = love.graphics.getHeight()
 
-    Game = require("game").new(w, h)
+    SFX = {}
+        SFX.select = love.audio.newSource("select.ogg", "static")
+        SFX.play = love.audio.newSource("play.ogg", "static")
+        SFX.score = love.audio.newSource("score.ogg", "static")
+        SFX.over = love.audio.newSource("over.ogg", "static")
+    -- end SFX table
 
     HeadGFX = love.graphics.newImage("head.png")
+    
+    Game = require("game").new(w, h)
 end
 
 function love.keypressed(k)
