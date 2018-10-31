@@ -65,6 +65,15 @@ local new = function(x, y, count)
             self.body:pushHead(tail)
             self.moved = true
         end
+
+        function player:incrementScore()
+            self.score = self.score + 1
+        end
+
+        function player:addNewHead(location)
+            self.body:pushHead(location)
+            self.bodySegmentCount = self.bodySegmentCount + 1
+        end
     -- end player table
 
     return player

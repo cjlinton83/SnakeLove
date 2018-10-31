@@ -49,6 +49,21 @@ local new = function(width, height)
         function game_data:resetSumDT()
             self.sumDT = 0
         end
+
+        function game_data:getEmptyLocation()
+            local getLocation = function()
+                local x = math.random(0, self.columns)
+                local y = math.random(2, self.rows)
+                return { x=x, y=y }
+            end
+
+            local location = getLocation()
+            while self.player:containsLocation(location) do
+                location = getLocation()
+            end
+
+            return location
+        end
     -- end game_data table
 
     return game_data

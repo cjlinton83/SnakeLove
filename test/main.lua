@@ -167,10 +167,12 @@ Draw = {}
             love.graphics.print(string.format("Game.data.player.moved: %s", Game.data.player.moved), 10, 160)
             love.graphics.print(string.format("Game.data.player.body.head: { x=%d, y=%d }",
                 Game.data.player.body.head.x, Game.data.player.body.head.y), 10, 180)
+            love.graphics.print(string.format("Game.data.player.bodySegmentCount: %d", Game.data.player.bodySegmentCount), 10, 200)
+            love.graphics.print(string.format("Game.data.cellCount: %d", Game.data.cellCount), 10, 220)            
         end
         if Game.data.food then
             love.graphics.print(string.format("Game.data.food.location: { x=%d, y=%d }",
-                Game.data.food.location.x, Game.data.food.location.y), 10, 200)
+                Game.data.food.location.x, Game.data.food.location.y), 10, 240)
         end
 
         love.graphics.print(string.format("Game.state.current: %s", Game.state.current), 410, 40)
