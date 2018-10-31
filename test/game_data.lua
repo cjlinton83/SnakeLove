@@ -28,8 +28,8 @@ local new = function(width, height)
             self.player = self.playerTable[self.currentPlayer]
 
             -- FOOD
-            self.food = require("food")
-            self.food:setLocation(self)
+            self.food = {}
+            self.food.location = self:getEmptyLocation()
 
             self.sumDT = 0
         end
