@@ -63,16 +63,17 @@ local new = function(width, height)
                 local direction = self.player.direction
 
                 if self.player.updated then
-                    self.player.updated = false
                     
                     if key == "up" or key == "down" then
                         if direction == "right" or direction == "left" then
                             self.player.direction = key
+                            self.player.updated = false
                         end
                     end
                     if key == "left" or key == "right" then
                         if direction == "up" or direction == "down" then
                             self.player.direction = key
+                            self.player.updated = false
                         end
                     end
                 end
