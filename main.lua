@@ -4,6 +4,7 @@ function love.load()
     local h = love.graphics.getHeight()
 
     love.mouse.setVisible(false)
+    math.randomseed(os.time())
 
     Game = game.new(w, h)
 end
