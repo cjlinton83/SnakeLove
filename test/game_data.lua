@@ -30,6 +30,8 @@ local new = function(width, height)
             -- FOOD
             self.food = require("food")
             self.food:setLocation(self)
+
+            self.sumDT = 0
         end
 
         function game_data:changePlayerCount()
@@ -38,6 +40,14 @@ local new = function(width, height)
             else
                 self.playerCount = 1
             end
+        end
+
+        function game_data:incrementSumDT(dt)
+            self.sumDT = self.sumDT + dt
+        end
+
+        function game_data:resetSumDT()
+            self.sumDT = 0
         end
     -- end game_data table
 
