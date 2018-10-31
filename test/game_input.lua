@@ -41,15 +41,13 @@ local game_input = {}
 
             if key == "up" or key == "down" then
                 if direction == "left" or direction == "right" then
-                    data.player.direction = key
-                    data.player.moved = false
+                    data.player:changeDirection(key)
                 end
             end
 
             if key == "left" or key == "right" then
                 if direction == "up" or direction == "down" then
-                    data.player.direction = key
-                    data.player.moved = false
+                    data.player:changeDirection(key)
                 end
             end
         end

@@ -1,8 +1,8 @@
 local game_update = {}
     function game_update.handler(data, state, dt)
-        if state == "play" then
+        if state.play then
             -- update player position
-            data.player:updatePosition()
+            data.player:updatePosition(data.columns, data.rows)
             -- check for collision with food
                 -- increase score
                 -- add to head
@@ -12,7 +12,7 @@ local game_update = {}
                 -- if collision with self (OVER)
             -- handle turn over / game over
                 -- out of
-        end
+        end 
     end
 -- end game_update table
 
