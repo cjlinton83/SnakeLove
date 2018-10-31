@@ -36,6 +36,23 @@ local game_input = {}
     end
 
     function game_input.handlePlay(data, state, key)
+        if data.player.moved then
+            local direction = data.player.direction
+
+            if key == "up" or key == "down" then
+                if direction == "left" or direction == "right" then
+                    data.player.direction = key
+                    data.player.moved = false
+                end
+            end
+
+            if key == "left" or key == "right" then
+                if direction == "up" or direction == "down" then
+                    data.player.direction = key
+                    data.player.moved = false
+                end
+            end
+        end
     end
 
     function game_input.handleOver(data, state, key)

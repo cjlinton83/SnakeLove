@@ -15,6 +15,7 @@ local new = function(x, y, count)
         player.direction = "right"
         player.score = 0
         player.body = initBody()
+        player.moved = true
 
         function player:containsLocation(location)
             local current = self.body.head

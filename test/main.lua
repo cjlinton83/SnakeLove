@@ -151,9 +151,13 @@ Draw = {}
             love.graphics.print(string.format("Game.data.playerTable[2]: %s", Game.data.playerTable[2]), 10, 100)
         end
         love.graphics.print(string.format("Game.data.player: %s", Game.data.player), 10, 120)
+        if Game.data.player then
+            love.graphics.print(string.format("Game.data.player.direction: %s", Game.data.player.direction), 10, 140)
+            love.graphics.print(string.format("Game.data.player.moved: %s", Game.data.player.moved), 10, 160)
+        end
         if Game.data.food then
             love.graphics.print(string.format("Game.data.food.location: { x=%d, y=%d }",
-                Game.data.food.location.x, Game.data.food.location.y), 10, 140)
+                Game.data.food.location.x, Game.data.food.location.y), 10, 180)
         end
 
         love.graphics.print(string.format("Game.state.current: %s", Game.state.current), 410, 40)
