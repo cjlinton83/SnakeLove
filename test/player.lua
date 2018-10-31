@@ -74,6 +74,9 @@ local new = function(x, y, count)
             self.body:pushHead(location)
             self.bodySegmentCount = self.bodySegmentCount + 1
         end
+
+        function player:checkSelfCollision()
+        end
     -- end player table
 
     return player
