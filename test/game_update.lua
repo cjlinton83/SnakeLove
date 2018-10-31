@@ -8,7 +8,7 @@ local game_update = {}
                 data.player:updatePosition(data.columns, data.rows)
                 data.sumDT = 0
             end
-            
+
             -- check for collision with food
                 -- increase score
                 -- add to head
