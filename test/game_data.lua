@@ -7,12 +7,12 @@ local new = function(width, height)
         game_data.refreshRate = 0.07
 
         -- game_data methods
-        function game_data:initSelect()
+        function game_data:initSelect() 
             self.playerCount = 1
             self.currentPlayer = 1
         end
 
-        function game_data:initPlay()
+        function game_data:initReady()
             -- PLAYER
             local player = require("player")
             local x = math.floor(self.columns/2)
@@ -30,7 +30,7 @@ local new = function(width, height)
             -- FOOD
             self.food = {}
             self.food.location = self:getEmptyLocation()
-
+                
             self.sumDT = 0
         end
 

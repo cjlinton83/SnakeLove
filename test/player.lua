@@ -15,7 +15,7 @@ local new = function(x, y, count)
         player.direction = "right"
         player.score = 0
         player.body = initBody()
-        player.moved = true
+        player.hasMoved = true
 
         function player:containsLocation(location)
             local current = self.body.head
@@ -63,7 +63,7 @@ local new = function(x, y, count)
             local tail = self.body:popTail()
             self.body:updateNode(tail, dx, dy)
             self.body:pushHead(tail)
-            self.moved = true
+            self.hasMoved = true
         end
 
         function player:incrementScore()
@@ -76,6 +76,17 @@ local new = function(x, y, count)
         end
 
         function player:checkSelfCollision()
+            local collided = false
+            local current = self.body.head
+
+            while current.next do
+                if current.next.x == self.body.head.x and current.next.y == self.body.head.y then
+                    collided = true
+                end
+                current = current.next
+            end
+
+            return collided
         end
     -- end player table
 

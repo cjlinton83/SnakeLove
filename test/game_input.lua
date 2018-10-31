@@ -27,6 +27,7 @@ local game_input = {}
         end
 
         if key == "return" then
+            data:initReady()
             state:set("ready", data)
         end
     end
@@ -36,7 +37,7 @@ local game_input = {}
     end
 
     function game_input.handlePlay(data, state, key)
-        if data.player.moved then
+        if data.player.hasMoved then
             local direction = data.player.direction
 
             if key == "up" or key == "down" then

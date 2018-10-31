@@ -123,19 +123,20 @@ Draw = {}
         love.graphics.origin()
         love.graphics.setColor(1, 1, 1)
 
-        Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score or 0), 10, 4)
         if Game.data.playerCount == 2 then
             if Game.data.currentPlayer == 1 then
                 love.graphics.setColor(1, 1, 1)
-                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score or 0), 10, 4)
+                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
                 love.graphics.setColor(1, 1, 1, 0.5)
-                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score or 0), 546, 4)
+                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score), 546, 4)
             else
                 love.graphics.setColor(1, 1, 1, 0.5)
-                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score or 0), 10, 4)
+                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
                 love.graphics.setColor(1, 1, 1)
-                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score or 0), 546, 4)
+                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score), 546, 4)
             end
+        else
+            Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
         end
 
         love.graphics.scale(Game.data.cellSize, Game.data.cellSize)
@@ -176,5 +177,11 @@ Draw = {}
         end
 
         love.graphics.print(string.format("Game.state.current: %s", Game.state.current), 410, 40)
+        if Game.data.playerTable then
+            love.graphics.print(string.format("Game.data.playerTable[1].score: %d", Game.data.playerTable[1].score), 410, 60)
+            if Game.data.playerTable[2] then
+                love.graphics.print(string.format("Game.data.playerTable[2].score: %d", Game.data.playerTable[2].score), 410, 80)
+            end
+        end
     end
 -- end Draw table

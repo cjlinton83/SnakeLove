@@ -23,8 +23,6 @@ local game_state = {}
             self.select = false
             self.ready = false
             self.over = false
-
-            data:initPlay()
         end
 
         if value == "over" then
