@@ -125,10 +125,21 @@ Draw = {}
 
         Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score or 0), 10, 4)
         if Game.data.playerCount == 2 then
-            Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score or 0), 546, 4)
+            if Game.data.currentPlayer == 1 then
+                love.graphics.setColor(1, 1, 1)
+                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score or 0), 10, 4)
+                love.graphics.setColor(1, 1, 1, 0.5)
+                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score or 0), 546, 4)
+            else
+                love.graphics.setColor(1, 1, 1, 0.5)
+                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score or 0), 10, 4)
+                love.graphics.setColor(1, 1, 1)
+                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score or 0), 546, 4)
+            end
         end
 
         love.graphics.scale(Game.data.cellSize, Game.data.cellSize)
+        love.graphics.setColor(1, 1, 1)
         
         drawPlayer()
         drawFood()
