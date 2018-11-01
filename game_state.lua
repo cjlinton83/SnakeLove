@@ -11,9 +11,7 @@ local game_state = {}
             data:initSelect()
         end
 
-        if value == "ready" then  
-            love.audio.stop()
-                      
+        if value == "ready" then                        
             self.ready = true
             self.select = false
             self.play = false

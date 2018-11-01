@@ -27,6 +27,7 @@ local game_input = {}
         end
 
         if key == "return" then
+            love.audio.stop()
             data:initReady()
             state:set("ready", data)
         end
