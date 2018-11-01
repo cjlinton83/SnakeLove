@@ -1,7 +1,5 @@
 local game_state = {}
-    function game_state:set(value, data)
-        self.current = value
-        
+    function game_state:set(value, data)        
         if value == "select" then
             love.audio.play(SFX.select)
 
@@ -13,7 +11,9 @@ local game_state = {}
             data:initSelect()
         end
 
-        if value == "ready" then            
+        if value == "ready" then  
+            love.audio.stop()
+                      
             self.ready = true
             self.select = false
             self.play = false

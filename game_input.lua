@@ -27,8 +27,6 @@ local game_input = {}
         end
 
         if key == "return" then
-            love.audio.stop(SFX.select)
-
             data:initReady()
             state:set("ready", data)
         end
