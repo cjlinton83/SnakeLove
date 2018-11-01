@@ -42,7 +42,7 @@ local game_update = {}
         end
     end
 
-    function game_update:changePlayerPlayerOrOver(data, state)
+    function game_update:changePlayerOrOver(data, state)
         if data.playerCount == 2 and data.currentPlayer == 1 then
             data:changePlayer()
             state:set("ready")
