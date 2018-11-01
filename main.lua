@@ -46,7 +46,7 @@ function love.draw()
         Draw.over()
     end
 
-    -- Draw.debug() 
+    -- Draw.debug()
 end
 
 Draw = {}
@@ -62,10 +62,10 @@ Draw = {}
             if Game.data.currentPlayer == 1 then
                 love.graphics.setColor(1, 1, 1)
                 Draw.text(string.format("PLAYER 1: %4d", Game.data.playerTable[1].score), 10, 4)
-                if Game.state.play then love.graphics.setColor(1, 1, 1, 0.5) else love.graphics.setColor(1, 1, 1) end
+                if Game.state.play then love.graphics.setColor(1, 1, 1, 0.5) end
                 Draw.text(string.format("PLAYER 2: %4d", Game.data.playerTable[2].score), 546, 4)
             else
-                if Game.state.play then love.graphics.setColor(1, 1, 1, 0.5) else love.graphics.setColor(1, 1, 1) end
+                if Game.state.play then love.graphics.setColor(1, 1, 1, 0.5) end
                 Draw.text(string.format("PLAYER 1: %4d", Game.data.playerTable[1].score), 10, 4)
                 love.graphics.setColor(1, 1, 1)
                 Draw.text(string.format("PLAYER 2: %4d", Game.data.playerTable[2].score), 546, 4)
@@ -209,7 +209,7 @@ Draw = {}
         love.graphics.print(string.format("Game.data.player: %s", Game.data.player), 10, 120)
         if Game.data.player then
             love.graphics.print(string.format("Game.data.player.direction: %s", Game.data.player.direction), 10, 140)
-            love.graphics.print(string.format("Game.data.player.moved: %s", Game.data.player.moved), 10, 160)
+            love.graphics.print(string.format("Game.data.player.hasMoved: %s", Game.data.player.hasMoved), 10, 160)
             love.graphics.print(string.format("Game.data.player.body.head: { x=%d, y=%d }",
                 Game.data.player.body.head.x, Game.data.player.body.head.y), 10, 180)
             love.graphics.print(string.format("Game.data.player.bodySegmentCount: %d", Game.data.player.bodySegmentCount), 10, 200)

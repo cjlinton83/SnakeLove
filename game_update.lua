@@ -17,7 +17,7 @@ local game_update = {}
             if data.player:checkSelfCollision() then
                 love.audio.play(SFX.over)
 
-                game_update:switchPlayerOrOver(data, state)
+                game_update:changePlayerOrOver(data, state)
             end
 
             data.sumDT = 0
@@ -35,18 +35,16 @@ local game_update = {}
                 data.player:incrementScore()
                 data.player:addNewHead(data.food.location)
                 if data.player.bodySegmentCount >= data.cellCount then
-                    game_update:switchPlayerOrOver(data, state)
+                    game_update:changePlayerOrOver(data, state)
                 else
                     data.food.location = data:getEmptyLocation()
                 end
         end
     end
 
-    function game_update:switchPlayerOrOver(data, state)
+    function game_update:changePlayerPlayerOrOver(data, state)
         if data.playerCount == 2 and data.currentPlayer == 1 then
-            data.sumDT = 0
-            data.currentPlayer = 2
-            data.player = data.playerTable[data.currentPlayer]
+            data:changePlayer()
             state:set("ready")
         else
             state:set("over")

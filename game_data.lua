@@ -64,6 +64,12 @@ local new = function(width, height)
 
             return location
         end
+
+        function game_data:changePlayer()
+            self.sumDT = 0
+            self.currentPlayer = 2
+            self.player = self.playerTable[self.currentPlayer]
+        end
     -- end game_data table
 
     return game_data

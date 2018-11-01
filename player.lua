@@ -36,7 +36,7 @@ local new = function(x, y, count)
 
         function player:changeDirection(direction)
             self.direction = direction
-            self.moved = false
+            self.hasMoved = false
         end
 
         function player:updatePosition(columns, rows)
