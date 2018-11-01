@@ -56,7 +56,8 @@ local game_input = {}
         end
     end
 
-    function game_input.handleOver(data, state, key)
+    function game_input.handleOver(data, state, key)    
+        if key == "return" then state:set("select", data) end
     end
 -- end game_input table
 

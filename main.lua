@@ -166,20 +166,20 @@ Draw = {}
 
         Draw.score()
 
-        Draw.text("GAME OVER", 318, 205)
+        Draw.text("GAME OVER", 318, 225)
 
         if Game.data.playerCount == 2 then
             local p1Score = Game.data.playerTable[1].score
             local p2Score = Game.data.playerTable[2].score
 
             if p1Score == p2Score then
-                Draw.text("IT'S A TIE!", 340, 300)
+                Draw.text("IT'S A TIE!", 322, 275)
             end
             if p1Score > p2Score then
-                Draw.text("PLAYER 1 WINS!", 340, 300)
+                Draw.text("PLAYER 1 WINS!", 288, 275)
             end
             if p2Score > p1Score then
-                Draw.text("PLAYER 2 WINS!", 340, 300)
+                Draw.text("PLAYER 2 WINS!", 284, 275)
             end
         end
 
