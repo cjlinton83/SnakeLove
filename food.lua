@@ -1,25 +1,24 @@
-local new = function(color)
-    local food = {}
-        food.color = color
-
-        function food:update(game)
-            if game:hasEmptyLocation() then
-                if self.location == nil then
-                    self.location = game:getEmptyLocation()
-                else
-                    if game.player:containsLocation(self.location) then
-                        game.player:incrementScore()
-                        game.player:pushNewHead(self.location)
-                        self.location = nil
-                    end
-                end
-            else
-                game.gameOver = true
+local food = {}
+    function food:setLocation(data)
+        local getEmptyLocation = function()
+            local getRandomLocation = function()
+                local x = math.random(0, data.columns)
+                local y = math.random(2, data.rows)
+                return { x=x, y=y }
             end
-        end
-    return food
-end
 
-return {
-    new = new
-}
+            local location = getRandomLocation()
+            while data.player:containsLocation(location) do
+                location = getRandomLocation()
+            end
+
+            return location
+        end
+
+        if self.location == nil then
+            self.location = getEmptyLocation()
+        end
+    end
+-- end food table
+
+return food
