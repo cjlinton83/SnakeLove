@@ -46,7 +46,7 @@ function love.draw()
         Draw.over()
     end
 
-    Draw.debug() 
+    -- Draw.debug() 
 end
 
 Draw = {}
@@ -58,24 +58,25 @@ Draw = {}
     end
 
     function Draw.score()
-        love.graphics.origin()
-        love.graphics.setColor(1, 1, 1)
-
         if Game.data.playerCount == 2 then
             if Game.data.currentPlayer == 1 then
                 love.graphics.setColor(1, 1, 1)
-                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
+                Draw.text(string.format("PLAYER 1: %4d", Game.data.playerTable[1].score), 10, 4)
                 if Game.state.play then love.graphics.setColor(1, 1, 1, 0.5) else love.graphics.setColor(1, 1, 1) end
-                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score), 546, 4)
+                Draw.text(string.format("PLAYER 2: %4d", Game.data.playerTable[2].score), 546, 4)
             else
                 if Game.state.play then love.graphics.setColor(1, 1, 1, 0.5) else love.graphics.setColor(1, 1, 1) end
-                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
+                Draw.text(string.format("PLAYER 1: %4d", Game.data.playerTable[1].score), 10, 4)
                 love.graphics.setColor(1, 1, 1)
-                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score), 546, 4)
+                Draw.text(string.format("PLAYER 2: %4d", Game.data.playerTable[2].score), 546, 4)
             end
         else
-            Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
+            Draw.text(string.format("PLAYER 1: %4d", Game.data.playerTable[1].score), 10, 4)
         end
+    end
+
+    function Draw.title()
+        Draw.text("SNAKE LÖVE", 307, 4)
     end
 
     function Draw.background()
@@ -91,9 +92,9 @@ Draw = {}
 
     function Draw.select()
         love.graphics.origin()
-
         love.graphics.setColor(1, 1, 1)
-        Draw.text("SNAKE LÖVE", 307, 4)
+
+        Draw.title()
 
         if Game.data.playerCount == 1 then
             love.graphics.rectangle("fill", 309, 225, 180, 30)
@@ -119,7 +120,7 @@ Draw = {}
         love.graphics.setColor(1, 1, 1)
 
         Draw.text(string.format("READY PLAYER %d", Game.data.currentPlayer), 275, 264)
-        Draw.text("PRESS ANY KEY TO CONTINUE", 175, 304)          
+        Draw.text("PRESS <ENTER> TO CONTINUE", 175, 304)          
     end
 
     function Draw.play()
@@ -149,21 +150,23 @@ Draw = {}
             end
         end
         
+        love.graphics.origin()
+        love.graphics.setColor(1, 1, 1)
+
         Draw.score()
 
         love.graphics.scale(Game.data.cellSize, Game.data.cellSize)
         love.graphics.setColor(1, 1, 1)
-        
+
         drawPlayer()
         drawFood()
     end
 
     function Draw.over()
         love.graphics.origin()
-
         love.graphics.setColor(1, 1, 1)
-        Draw.text("SNAKE LÖVE", 307, 4)
 
+        Draw.title()
         Draw.score()
 
         Draw.text("GAME OVER", 318, 225)

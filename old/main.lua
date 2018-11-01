@@ -50,9 +50,9 @@ Draw = {}
                 end
             end
 
-            Draw.text(string.format("PLAYER 1: %04d", p1score), 20, 8)
+            Draw.text(string.format("PLAYER 1: %4d", p1score), 20, 8)
             if Game.playerCount == 2 then
-                Draw.text(string.format("PLAYER 2: %04d", p2score), 540, 8)
+                Draw.text(string.format("PLAYER 2: %4d", p2score), 540, 8)
             end
         end
 

@@ -35,7 +35,7 @@ local game_input = {}
     end
 
     function game_input.handleReady(data, state, key)
-        if key then state:set("play", data) end
+        if key == "return" then state:set("play", data) end
     end
 
     function game_input.handlePlay(data, state, key)
