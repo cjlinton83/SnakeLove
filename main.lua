@@ -61,17 +61,17 @@ Draw = {}
         if Game.data.playerCount == 2 then
             if Game.data.currentPlayer == 1 then
                 love.graphics.setColor(1, 1, 1)
-                Draw.text(string.format("PLAYER 1: %4d", Game.data.playerTable[1].score), 10, 4)
+                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
                 if Game.state.play then love.graphics.setColor(1, 1, 1, 0.5) end
-                Draw.text(string.format("PLAYER 2: %4d", Game.data.playerTable[2].score), 546, 4)
+                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score), 546, 4)
             else
                 if Game.state.play then love.graphics.setColor(1, 1, 1, 0.5) end
-                Draw.text(string.format("PLAYER 1: %4d", Game.data.playerTable[1].score), 10, 4)
+                Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
                 love.graphics.setColor(1, 1, 1)
-                Draw.text(string.format("PLAYER 2: %4d", Game.data.playerTable[2].score), 546, 4)
+                Draw.text(string.format("PLAYER 2: %04d", Game.data.playerTable[2].score), 546, 4)
             end
         else
-            Draw.text(string.format("PLAYER 1: %4d", Game.data.playerTable[1].score), 10, 4)
+            Draw.text(string.format("PLAYER 1: %04d", Game.data.playerTable[1].score), 10, 4)
         end
     end
 
